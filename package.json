@@ -1,0 +1,19 @@
+{
+  "name": "raspbery-pi-manager",
+  "version": "0.0.1",
+  "description": "Raspberry Pi Manager",
+  "main": "app.js",
+  "author": "Anthony Li",
+  "contributors": [
+    {
+      "name": "Phyo Naung"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "latest"
+  },
+  "devDependencies": {
+
+  }
+}
