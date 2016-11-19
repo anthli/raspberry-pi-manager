@@ -20,5 +20,8 @@
   },
   "devDependencies": {
     "nodemon": "latest"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
   }
 }
