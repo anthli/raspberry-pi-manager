@@ -16,7 +16,8 @@
     "url": "git+https://github.com/anthli/raspberry-pi-manager.git"
   },
   "dependencies": {
-    "express": "latest"
+    "express": "latest",
+    "public-ip": "latest"
   },
   "devDependencies": {
     "nodemon": "latest"

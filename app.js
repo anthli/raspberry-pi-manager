@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const publicIp = require('public-ip');
 
 const app = express();
 
@@ -8,7 +9,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  publicIp.v4().then(ip => {
+    res.send({
+      ip: ip,
+      status: 'Running'
+    });
+  });
 });
 
 // Start up the server
