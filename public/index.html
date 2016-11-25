@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raspberry Pi Monitor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Load CSS files -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css" media="screen">
+
+    <!-- Load JS files -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/index.js"></script>
+  </head>
+
+  <body>
+    <div id="sysinfo-container" class="container">
+      <div class="title">Hostname</div>
+      <div id="hostname"></div>
+
+      <div class="title">Operating System</div>
+      <div id="os"></div>
+
+      <div class="title">Uptime</div>
+      <div id="uptime"></div>
+    </div>
+
+    <!-- IP of the Raspberry Pi -->
+    <div id="ip-container" class="container">
+      <div class="title">Public IP</div>
+      <div id="ip"></div>
+    </div>
+
+    <!-- Status of the Raspberry Pi -->
+    <div id="status-container" class="container">
+      <div class="title">Status</div>
+      <div id="status"></div>
+    </div>
+  </body>
+</html>

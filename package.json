@@ -1,7 +1,7 @@
 {
-  "name": "raspbery-pi-manager",
-  "version": "0.0.1",
-  "description": "Raspberry Pi Manager",
+  "name": "raspbery-pi-monitor",
+  "version": "0.0.2",
+  "description": "Raspberry Pi Monitor",
   "main": "app.js",
   "author": "Anthony Li",
   "license": "MIT",
@@ -13,11 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anthli/raspberry-pi-manager.git"
+    "url": "git+https://github.com/anthli/raspberry-pi-monitor.git"
   },
   "dependencies": {
     "express": "latest",
-    "public-ip": "latest"
+    "lodash": "latest",
+    "socket.io": "latest"
   },
   "devDependencies": {
     "nodemon": "latest"

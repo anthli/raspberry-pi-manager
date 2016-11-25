@@ -1,0 +1,22 @@
+html, body {
+  font-family: Lato, sans-serif;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.container {
+  font-size: 24px;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.container .title {
+  text-decoration: underline;
+}
+
+#ip, #status {
+  font-size: 20px;
+  padding-top: 20px;
+}
