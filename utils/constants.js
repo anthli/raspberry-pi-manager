@@ -5,6 +5,7 @@ module.exports.SocketEvent = {
   SysUptime: 'sys-uptime',
   PublicIp: 'public-ip',
   CpuInfo: 'cpu-info',
+  CpuUsage: 'cpu-usage',
   CpuTemp: 'cpu-temp',
   TotalMem: 'total-mem',
   AvailableMem: 'available-mem'
@@ -35,8 +36,7 @@ module.exports.Command = {
     lscpu | grep "Architecture" | awk '{$1="architecture:"; print $0}' &&
 
     # CPUs
-    dir=/proc/cpuinfo &&
-    grep processor $dir | wc -l | awk '{printf "cpus: %s\\n", $0}' &&
+    lscpu | grep "CPU(s):" | awk '{printf "cpus: %s\\n", $2}' &&
 
     # CPU Max MHz
     lscpu | grep "max MHz" | awk '{printf "maxMhz: %1.2f\\n", $4}' &&
@@ -46,18 +46,21 @@ module.exports.Command = {
   `,
 
   CpuTemp: `
-    dir=/sys/class/thermal/thermal_zone0/temp;
-    cat $dir | awk '{printf "temp: %1.1f\\n", $0 / 1000}'
+    cat /sys/class/thermal/thermal_zone0/temp |
+      awk '{printf "temp: %1.1f\\n", $0 / 1000}'
+  `,
+
+  CpuUsage: `
+    top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
+      awk '{printf "usage: %s%%\\n", $2 + $4}'
   `,
 
   TotalMem: `
-    dir=/proc/meminfo &&
-    grep MemTotal $dir | awk '{printf "total: %1.0f MB\\n", $2 / 1000}'
+    grep MemTotal /proc/meminfo | awk '{printf "total: %1.0f MB\\n", $2 / 1000}'
   `,
 
   AvailableMem: `
-    # Available Memory
-    dir=/proc/meminfo &&
-    grep MemAvailable $dir | awk '{printf "available: %1.0f MB\\n", $2 / 1000}'
+    grep MemAvailable /proc/meminfo |
+      awk '{printf "available: %1.0f MB\\n", $2 / 1000}'
   `
 };

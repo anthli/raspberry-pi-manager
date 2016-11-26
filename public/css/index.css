@@ -6,17 +6,17 @@ html, body {
   width: 100%;
 }
 
-.container {
+.info-container {
   font-size: 16px;
   padding-top: 20px;
   text-align: center;
 }
 
-.container:not(:first-child) {
+.info-container:not(:first-child) {
   padding-top: 30px;
 }
 
-.container .title {
+.info-container .title {
   font-size: 18px;
   text-decoration: underline;
 }

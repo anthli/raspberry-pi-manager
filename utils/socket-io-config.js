@@ -20,7 +20,16 @@ module.exports = server => {
       );
     });
 
-    // Send the CPU temperatures and available memory at intervals of 3 seconds
+    // Send the CPU usage at intervals of 1 second
+    setInterval(() => {
+      sysinfo.sendInfo(
+        socket,
+        constants.Command.CpuUsage,
+        constants.SocketEvent.CpuUsage
+      );
+    }, 1000);
+
+    // Send the CPU temperatures and available memory at intervals of 2 seconds
     setInterval(() => {
       sysinfo.sendInfo(
         socket,
@@ -33,7 +42,7 @@ module.exports = server => {
         constants.Command.AvailableMem,
         constants.SocketEvent.AvailableMem
       );
-    }, 3000);
+    }, 2000);
 
     // Send the uptime at intervals of 1 minute
     setInterval(() => {

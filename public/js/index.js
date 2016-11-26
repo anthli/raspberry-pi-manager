@@ -16,12 +16,15 @@ socket.on('public-ip', data => {
 });
 
 socket.on('cpu-info', data => {
-  console.log(data);
   $('#model').html('Model: ' + data.model);
   $('#architecture').html('Architecture: ' + data.architecture);
   $('#cpus').html('CPUs: ' + data.cpus);
   $('#maxMhz').html('Max MHz: ' + data.maxMhz);
   $('#minMhz').html('Min MHz: ' + data.minMhz);
+});
+
+socket.on('cpu-usage', data => {
+  $('#usage').html(data.usage);
 });
 
 socket.on('cpu-temp', data => {

@@ -9,8 +9,7 @@ Pi.
 - Memory readings
 
 ## Features to be added
-- CPU load
-- Possible layer of controls (restart device, restart server, etc.)
+- Possible layer of controls (restart device, reading refresh rate, etc.)
 
 ## Development
 
