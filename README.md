@@ -4,14 +4,13 @@ A Node.js server that monitors the status and system information of a Raspberry
 Pi.
 
 ## Features
-
+- System information (hostname, OS, etc.)
+- CPU info and readings
+- Memory readings
 
 ## Features to be added
-- Current operating system
-- Temperature readings
-- Memory usage
 - CPU load
-- Manually restart the device
+- Possible layer of controls (restart device, restart server, etc.)
 
 ## Development
 
