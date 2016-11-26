@@ -7,7 +7,7 @@ module.exports.SocketEvent = {
   CpuInfo: 'cpu-info',
   CpuTemp: 'cpu-temp',
   TotalMem: 'total-mem',
-  FreeAvailableMem: 'free-available-mem'
+  AvailableMem: 'available-mem'
 };
 
 module.exports.Command = {
@@ -29,35 +29,35 @@ module.exports.Command = {
 
   CpuInfo: `
     # CPU Model
-    lscpu | egrep "Model" | awk '{$1=""; $2=""; printf "model: %s\\n", $0}' &&
+    lscpu | grep Model | awk '{$1=""; $2=""; printf "model: %s\\n", $0}' &&
 
     # CPU Architecture
-    lscpu | egrep "Architecture" | awk '{$1="architecture:"; print $0}' &&
+    lscpu | grep "Architecture" | awk '{$1="architecture:"; print $0}' &&
 
     # CPUs
-    grep processor /proc/cpuinfo | wc -l | awk '{printf "cpus: %s\\n", $0}' &&
+    dir=/proc/cpuinfo &&
+    grep processor $dir | wc -l | awk '{printf "cpus: %s\\n", $0}' &&
 
     # CPU Max MHz
-    lscpu | egrep "max MHz" | awk '{printf "maxMhz: %1.2f\\n", $4}' &&
+    lscpu | grep "max MHz" | awk '{printf "maxMhz: %1.2f\\n", $4}' &&
 
     # CPU Min MHz
-    lscpu | egrep "min MHz" | awk '{printf "minMhz: %1.2f\\n", $4}'
+    lscpu | grep "min MHz" | awk '{printf "minMhz: %1.2f\\n", $4}'
   `,
 
   CpuTemp: `
-    tempDir=/sys/class/thermal/thermal_zone0/temp &&
-    cat $tempDir | awk '{printf "temp: %1.1f\\n", $0 / 1000}'
+    dir=/sys/class/thermal/thermal_zone0/temp;
+    cat $dir | awk '{printf "temp: %1.1f\\n", $0 / 1000}'
   `,
 
   TotalMem: `
-    grep MemTotal /proc/meminfo | awk '{$1="total:"; print $0}'
+    dir=/proc/meminfo &&
+    grep MemTotal $dir | awk '{printf "total: %1.0f MB\\n", $2 / 1000}'
   `,
 
-  FreeAvailableMem: `
-    # Free Memory
-    grep MemFree /proc/meminfo | awk '{$1="free:"; print $0}' &&
-
+  AvailableMem: `
     # Available Memory
-    grep MemAvailable /proc/meminfo | awk '{$1="available:"; print $0}'
+    dir=/proc/meminfo &&
+    grep MemAvailable $dir | awk '{printf "available: %1.0f MB\\n", $2 / 1000}'
   `
 };

@@ -20,8 +20,7 @@ module.exports = server => {
       );
     });
 
-    // Send the CPU temperatures, free and available memory at intervals of 3
-    // seconds
+    // Send the CPU temperatures and available memory at intervals of 3 seconds
     setInterval(() => {
       sysinfo.sendInfo(
         socket,
@@ -31,8 +30,8 @@ module.exports = server => {
 
       sysinfo.sendInfo(
         socket,
-        constants.Command.FreeAvailableMem,
-        constants.SocketEvent.FreeAvailableMem
+        constants.Command.AvailableMem,
+        constants.SocketEvent.AvailableMem
       );
     }, 3000);
 

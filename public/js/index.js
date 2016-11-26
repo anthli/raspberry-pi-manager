@@ -32,7 +32,6 @@ socket.on('total-mem', data => {
   $('#total').html(data.total);
 });
 
-socket.on('free-available-mem', data => {
-  $('#free').html(data.free);
+socket.on('available-mem', data => {
   $('#available').html(data.available);
 });
