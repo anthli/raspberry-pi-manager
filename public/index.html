@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Load CSS files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/bc01f253ed.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/lato.min.css">
     <link rel="stylesheet" href="css/index.css" media="screen">
 
     <!-- Load JS files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>!window.jQuery && document.write('<script src="/scripts/jquery.min.js"><\/script>')</script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script>window.jQuery || document.write('<script src="/scripts/jquery.min.js"><\/script>')</script>
     <script src="js/index.js"></script>
   </head>
 
@@ -45,6 +44,11 @@
         <div class="card-section">
           <div class="card-section-title">Public IP</div>
           <div id="ip" class="card-section-content"></div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Total Memory</div>
+          <div id="total" class="card-section-content"></div>
         </div>
       </div>
 
@@ -86,33 +90,20 @@
           <i class="fa fa-area-chart"></i>
         </div>
 
-        <div class="card-title">CPU Readings</div>
+        <div class="card-title">Monitor</div>
 
         <div class="card-section">
-          <div class="card-section-title">Usage</div>
-          <div id="usage" class="card-section-content"></div>
+          <div class="card-section-title">CPU Load</div>
+          <div id="load" class="card-section-content"></div>
         </div>
 
         <div class="card-section">
-          <div class="card-section-title">Temperature</div>
+          <div class="card-section-title">CPU Temperature</div>
           <div id="temp" class="card-section-content"></div>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="card-icon">
-          <i class="fa fa-area-chart"></i>
-        </div>
-
-        <div class="card-title">Memory Readings</div>
 
         <div class="card-section">
-          <div class="card-section-title">Total</div>
-          <div id="total" class="card-section-content"></div>
-        </div>
-
-        <div class="card-section">
-          <div class="card-section-title">Available</div>
+          <div class="card-section-title">Available Memory</div>
           <div id="available" class="card-section-content"></div>
         </div>
       </div>

@@ -22,8 +22,9 @@ const outputToKeyValue = data => {
   return info;
 };
 
-// Execuse the command and send its output over the socket on the event
-module.exports.sendInfo = (socket, command, event) => {
+// Execute the command and send a response back to the client containing the
+// output of the execution
+module.exports.sendInfo = (res, command) => {
   exec(command, (err, stdout, stderr) => {
     if (err) {
       console.error(err);
@@ -31,6 +32,6 @@ module.exports.sendInfo = (socket, command, event) => {
     }
 
     let info = outputToKeyValue(stdout);
-    socket.emit(event, info);
+    res.json(info);
   });
 };

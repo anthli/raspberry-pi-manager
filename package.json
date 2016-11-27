@@ -1,6 +1,6 @@
 {
   "name": "raspbery-pi-monitor",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Raspberry Pi Monitor",
   "main": "app.js",
   "author": "Anthony Li",
@@ -18,8 +18,7 @@
   "dependencies": {
     "express": "latest",
     "jquery": "latest",
-    "lodash": "latest",
-    "socket.io": "latest"
+    "lodash": "latest"
   },
   "devDependencies": {
     "nodemon": "latest"
