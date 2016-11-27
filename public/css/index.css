@@ -16,7 +16,8 @@ html, body {
 .title-bar {
   margin: 0 auto;
   padding-top: 45px;
-  width: 50%;
+  text-align: center;
+  width: 100%;
 }
 
 .title {
@@ -26,7 +27,7 @@ html, body {
 
 #content {
   margin: 0 auto;
-  width: 50%;
+  width: 80%;
 }
 
 .card {
@@ -56,6 +57,15 @@ html, body {
 }
 
 @media screen and (min-width: 500px) {
+  .title-bar {
+    text-align: left;
+    width: 65%;
+  }
+
+  #content {
+    width: 65%;
+  }
+
   .card-icon, .card-title {
     font-size: 24px;
   }
@@ -70,6 +80,14 @@ html, body {
 }
 
 @media screen and (min-width: 768px) {
+  .title-bar {
+    width: 50%;
+  }
+
+  #content {
+    width: 50%;
+  }
+
   .card-icon, .card-title {
     font-size: 26px;
   }
