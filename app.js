@@ -9,7 +9,7 @@ const sysinfo = require('./utils/sysinfo');
 const app = express();
 
 const dir = __dirname;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 // Server static files
 app.use(express.static(constants.PublicDir));
