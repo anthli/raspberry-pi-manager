@@ -1,19 +1,10 @@
 'use strict';
 
-let cpuLoadChart;
-
 const endpoints = [
   '/sysinfo',
   '/publicip',
   '/cpuinfo'
 ];
-
-// const getTime = () => {
-//   let date = new Date();
-//   let hours = date.getHours();
-//   let minutes = date.getMinutes();
-//   let seconds = date.getSeconds();
-// }
 
 // Write the JSON to HTML where the keys are id attributes in the HTML
 const writeJsonToHtml = (json) => {
@@ -36,12 +27,7 @@ const requestCpuLoad = () => {
   $.ajax({
     url: '/cpuload',
     dataType: 'json',
-    success: (data) => {
-      let series = cpuLoadChart.series[0];
-      let shift = series.data.length > 10;
-      let date = new Date().getTime();
-      series.addPoint([date, data.load], true, shift);
-    },
+    success: (data) => writeJsonToHtml(data),
     complete: setTimeout(requestCpuLoad, 1 * 1000)
   });
 };
@@ -85,51 +71,8 @@ $(document).ready(() => {
     });
   });
 
-  // Don't use UTC time for time axes
-  Highcharts.setOptions({
-    global: {
-      useUTC: false
-    }
-  });
-
+  requestCpuLoad();
   requestCpuTemp();
   requestAvailableMem();
   requestUptime();
-
-  cpuLoadChart = new Highcharts.Chart({
-    chart: {
-      renderTo: 'load',
-      type: 'spline',
-      events: {
-        load: requestCpuLoad
-      }
-    },
-
-    title: '',
-
-    legend: false,
-
-    xAxis: {
-      type: 'datetime',
-      tickPixelInterval: 150,
-      maxZoom: 20 * 1000
-    },
-
-    yAxis: {
-      minPadding: 0.2,
-      maxPadding: 0.2,
-      labels: {
-        format: '{value: 0.1f}'
-      },
-      title: {
-        text: 'Temperature (\xB0C)',
-        margin: 80
-      }
-    },
-
-    series: [{
-      name: 'Random data',
-      data: []
-    }]
-  });
 });
