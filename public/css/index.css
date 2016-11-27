@@ -36,25 +36,49 @@ html, body {
   padding: 40px;
 }
 
-.card-icon {
-  float: left;
-  width: 45px;
-}
-
 .card-icon, .card-title {
-  font-size: 24px;
+  font-size: 22px;
+  text-align: center;
 }
 
 .card-section {
-  margin: 0 45px;
+  text-align: center;
 }
 
 .card-section-title {
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 30px;
 }
 
 .card-section-content {
-  font-size: 16px;
-  margin: 15px 15px;
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+@media screen and (min-width: 500px) {
+  .card-icon, .card-title {
+    font-size: 24px;
+  }
+
+  .card-section-title {
+    font-size: 18px;
+  }
+
+  .card-section-content {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card-icon, .card-title {
+    font-size: 26px;
+  }
+
+  .card-section-title {
+    font-size: 20px;
+  }
+
+  .card-section-content {
+    font-size: 18px;
+  }
 }
