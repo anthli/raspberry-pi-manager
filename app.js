@@ -12,11 +12,11 @@ const dir = __dirname;
 const port = process.env.PORT || 3000;
 
 // Server static files
-app.use(express.static(`${__dir}/public`));
+app.use(express.static(`${dir}/public`));
 app.use('/scripts', express.static(`${dir}/node_modules/jquery/dist/`));
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dir}/public/index.html`);
+  res.sendFile(`${dir}/public/index.html`);
 });
 
 // Dynamically retrieve the command to use based on the route parameter
