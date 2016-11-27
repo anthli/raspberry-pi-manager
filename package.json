@@ -1,6 +1,6 @@
 {
   "name": "raspbery-pi-monitor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Raspberry Pi Monitor",
   "main": "app.js",
   "author": "Anthony Li",
