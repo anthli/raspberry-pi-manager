@@ -1,5 +1,7 @@
 'use strict';
 
+let cpuLoadChart;
+
 const endpoints = [
   '/sysinfo',
   '/publicip',
@@ -27,7 +29,12 @@ const requestCpuLoad = () => {
   $.ajax({
     url: '/cpuload',
     dataType: 'json',
-    success: (data) => writeJsonToHtml(data),
+    success: (data) => {
+      let series = cpuLoadChart.series[0];
+      let shift = series.data.length > 10;
+      let date = new Date().getTime();
+      series.addPoint([date, data.load], true, shift);
+    },
     complete: setTimeout(requestCpuLoad, 1 * 1000)
   });
 };
@@ -71,8 +78,47 @@ $(document).ready(() => {
     });
   });
 
-  requestCpuLoad();
-  requestCpuTemp();
-  requestAvailableMem();
-  requestUptime();
+  // Don't use UTC time for time axes
+  Highcharts.setOptions({
+    global: {
+      useUTC: false
+    }
+  });
+
+  cpuLoadChart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'load',
+      type: 'spline',
+      events: {
+        load: requestCpuLoad
+      }
+    },
+
+    title: '',
+
+    legend: false,
+
+    xAxis: {
+      type: 'datetime',
+      tickPixelInterval: 150,
+      maxZoom: 20 * 1000
+    },
+
+    yAxis: {
+      minPadding: 0.2,
+      maxPadding: 0.2,
+      labels: {
+        format: '{value: 0.1f}'
+      },
+      title: {
+        text: 'Temperature (\xB0C)',
+        margin: 80
+      }
+    },
+
+    series: [{
+      name: 'Random data',
+      data: []
+    }]
+  });
 });
