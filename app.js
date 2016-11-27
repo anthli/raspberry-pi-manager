@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000;
 
 // Server static files
 app.use(express.static('public'));
+app.use('/scripts', express.static('node_modules/jquery/dist/'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + 'public/index.html');

@@ -6,63 +6,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Load CSS files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/bc01f253ed.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" media="screen">
 
     <!-- Load JS files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>!window.jQuery && document.write('<script src="/scripts/jquery.min.js"><\/script>')</script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/index.js"></script>
   </head>
 
   <body>
-    <div class="info-container">
-      <div class="title">Hostname</div>
-      <div id="hostname"></div>
+    <div id="header">
+      <div class="titlebar">
+        <div id="hostname" class="title">./</div>
+      </div>
     </div>
 
-    <div class="info-container">
-      <div class="title">Operating System</div>
-      <div id="os"></div>
-    </div>
+    <div id="content">
+      <div class="card">
+        <div class="card-icon">
+          <i class="fa fa-desktop"></i>
+        </div>
 
-    <div class="info-container">
-      <div class="title">Uptime</div>
-      <div id="uptime"></div>
-    </div>
+        <div class="card-title">Device Information</div>
 
-    <div class="info-container">
-      <div class="title">Public IP</div>
-      <div id="ip"></div>
-    </div>
+        <div class="card-section">
+          <div class="card-section-title">Operating System</div>
+          <div id="os" class="card-section-content">test</div>
+        </div>
 
-    <div class="info-container">
-      <div class="title">CPU Info</div>
-      <div id="model"></div>
-      <div id="architecture"></div>
-      <div id="cpus"></div>
-      <div id="maxMhz"></div>
-      <div id="minMhz"></div>
-    </div>
+        <div class="card-section">
+          <div class="card-section-title">Uptime</div>
+          <div id="uptime" class="card-section-content">test</div>
+        </div>
 
-    <div class="info-container">
-      <div class="title">CPU Usage</div>
-      <div id="usage"></div>
-    </div>
+        <div class="card-section">
+          <div class="card-section-title">Public IP</div>
+          <div id="ip" class="card-section-content">test</div>
+        </div>
+      </div>
 
-    <div class="info-container">
-      <div class="title">CPU Temp</div>
-      <div id="temp"></div>
-    </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fa fa-microchip"></i>
+        </div>
 
-    <div class="info-container">
-      <div class="title">Total Memory</div>
-      <div id="total"></div>
-    </div>
+        <div class="card-title">CPU Information</div>
 
-    <div class="info-container">
-      <div class="title">Available Memory</div>
-      <div id="available"></div>
+        <div class="card-section">
+          <div class="card-section-title">Model</div>
+          <div id="model" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Architecture</div>
+          <div id="architecture" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">CPUs</div>
+          <div id="cpus" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Max Clock Speed</div>
+          <div id="maxMhz" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Min Clock Speed</div>
+          <div id="minMhz" class="card-section-content">test</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <i class="fa fa-area-chart"></i>
+        </div>
+
+        <div class="card-title">CPU Readings</div>
+
+        <div class="card-section">
+          <div class="card-section-title">Usage</div>
+          <div id="usage" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Temperature</div>
+          <div id="temp" class="card-section-content">test</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <i class="fa fa-area-chart"></i>
+        </div>
+
+        <div class="card-title">Memory Readings</div>
+
+        <div class="card-section">
+          <div class="card-section-title">Total</div>
+          <div id="total" class="card-section-content">test</div>
+        </div>
+
+        <div class="card-section">
+          <div class="card-section-title">Available</div>
+          <div id="available" class="card-section-content">test</div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

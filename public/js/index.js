@@ -3,7 +3,7 @@
 const socket = io.connect();
 
 socket.on('sys-info', data => {
-  $('#hostname').html(data.hostname);
+  $('#hostname').html('./' + data.hostname);
   $('#os').html(data.os);
 });
 

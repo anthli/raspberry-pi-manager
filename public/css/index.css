@@ -1,22 +1,60 @@
 html, body {
+  background-color: #eeeeee;
   font-family: Lato, sans-serif;
   height: 100%;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   width: 100%;
 }
 
-.info-container {
-  font-size: 16px;
-  padding-top: 20px;
-  text-align: center;
+#header {
+  background-color: #76a833;
+  height: 200px;
+  width: 100%;
 }
 
-.info-container:not(:first-child) {
+.titlebar {
+  margin: 0 auto;
   padding-top: 30px;
+  width: 50%;
 }
 
-.info-container .title {
+.title {
+ color: #ffffff;
+ font-size: 36px;
+}
+
+#content {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.card {
+  background-color: #ffffff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  margin: 30px auto;
+  padding: 40px;
+}
+
+.card-icon {
+  float: left;
+  width: 45px;
+}
+
+.card-icon, .card-title {
+  font-size: 24px;
+}
+
+.card-section {
+  margin: 0 45px;
+}
+
+.card-section-title {
   font-size: 18px;
-  text-decoration: underline;
+  margin-top: 30px;
+}
+
+.card-section-content {
+  font-size: 16px;
+  margin: 15px 15px;
 }
