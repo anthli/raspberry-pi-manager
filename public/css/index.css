@@ -37,11 +37,16 @@ html, body {
   padding: 40px;
 }
 
-.card-icon, .card-title {
-  font-size: 22px;
-  text-align: center;
+.card-icon {
+  font-size: 32px;
 }
 
+.card-title {
+  font-size: 22px;
+}
+
+.card-icon,
+.card-title,
 .card-section {
   text-align: center;
 }
@@ -66,7 +71,11 @@ html, body {
     width: 65%;
   }
 
-  .card-icon, .card-title {
+  .card-icon {
+    font-size: 36px;
+  }
+
+  .card-title {
     font-size: 24px;
   }
 
@@ -88,7 +97,11 @@ html, body {
     width: 50%;
   }
 
-  .card-icon, .card-title {
+  .card-icon {
+    font-size: 40px;
+  }
+
+  .card-title {
     font-size: 26px;
   }
 
