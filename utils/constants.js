@@ -1,13 +1,18 @@
 'use strict';
 
-module.exports.SocketEvent = {
-  SysInfo: 'sys-info',
-  Uptime: 'uptime',
-  PublicIp: 'public-ip',
-  CpuInfo: 'cpu-info',
-  CpuLoad: 'cpu-load',
-  CpuTemp: 'cpu-temp',
-  AvailableMem: 'available-mem'
+const path = require('path');
+
+const dir = __dirname;
+const publicDir = path.join(dir, '../public/');
+const nodeModules = path.join(__dirname, '../node_modules/');
+
+module.exports.PublicDir = publicDir;
+module.exports.IndexHtml = path.join(publicDir, 'index.html');
+
+module.exports.NodeModules = {
+  JQuery: path.join(nodeModules, 'jquery/dist/'),
+  Highcharts: path.join(nodeModules, 'highcharts/'),
+  Lodash: path.join(nodeModules, 'lodash/')
 };
 
 module.exports.Command = {
@@ -49,7 +54,7 @@ module.exports.Command = {
 
   CpuLoad: `
     top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "load: %s%%\\n", $2 + $4}'
+      awk '{printf "load: %s\\n", $2 + $4}'
   `,
 
   CpuTemp: `

@@ -3,8 +3,6 @@
 const _ = require('lodash');
 const exec = require('child_process').exec;
 
-const constants = require('./constants');
-
 // Split the data by newline to get each individual output, then split
 // the output into key-value pairs and assign them to info
 const outputToKeyValue = data => {
@@ -28,6 +26,7 @@ module.exports.sendInfo = (res, command) => {
   exec(command, (err, stdout, stderr) => {
     if (err) {
       console.error(err);
+
       return;
     }
 
