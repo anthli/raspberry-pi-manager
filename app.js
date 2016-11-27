@@ -8,15 +8,15 @@ const sysinfo = require('./utils/sysinfo');
 
 const app = express();
 
-// Default port to 3000 if the environment doesn't have one
+const dir = __dirname;
 const port = process.env.PORT || 3000;
 
 // Server static files
-app.use(express.static('public'));
-app.use('/scripts', express.static('node_modules/jquery/dist/'));
+app.use(express.static(`${__dir}/public`));
+app.use('/scripts', express.static(`${dir}/node_modules/jquery/dist/`));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'public/index.html');
+  res.sendFile(`${__dir}/public/index.html`);
 });
 
 // Dynamically retrieve the command to use based on the route parameter
