@@ -2,7 +2,7 @@
 
 let cpuLoadChart;
 let cpuTempChart;
-let availableMemChart;
+let memUsageChart;
 
 const endpoints = [
   '/sysinfo',
@@ -55,16 +55,18 @@ const requestCpuTemp = () => {
   });
 };
 
-const requestAvailableMem = () => {
+const requestMemUsage = () => {
   $.ajax({
-    url: '/availablemem',
+    url: '/memusage',
     dataType: 'json',
     success: (data) => {
+      console.log(data);
+      // let series = memUsageChart.series[0];
       // let shift = series.data.length > 20;
       // let date = new Date().getTime();
       // series.addPoint([date, data.available * 1], true, shift);
     },
-    complete: setTimeout(requestAvailableMem, 1 * 1000)
+    complete: setTimeout(requestMemUsage, 1 * 1000)
   });
 };
 
@@ -134,6 +136,9 @@ $(document).ready(() => {
     yAxis: {
       minPadding: 0.2,
       maxPadding: 0.2,
+      labels: {
+        format: '{value: 1.0f}'
+      },
       title: {
         text: 'Load (%)'
       }
@@ -180,6 +185,9 @@ $(document).ready(() => {
     yAxis: {
       minPadding: 0.2,
       maxPadding: 0.2,
+      labels: {
+        format: '{value: 1.0f}'
+      },
       title: {
         text: 'Temperature (\xB0C)'
       }
