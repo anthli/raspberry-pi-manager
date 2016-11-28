@@ -24,11 +24,12 @@ module.exports.Command = {
     lsb_release -d | awk '{$1=""; printf "os: %s\\n", $0}' &&
 
     # Total Memory
-    grep MemTotal /proc/meminfo | awk '{printf "total: %1.0f MB\\n", $2 / 1000}'
+    grep MemTotal /proc/meminfo |
+      awk '{printf "totalMem: %1.0f MB\\n", $2 / 1000}'
   `,
 
   PublicIp: `
-    wget http://ipinfo.io/ip -qO - | awk '{printf "ip: %s\\n", $0}'
+    wget http://ipinfo.io/ip -qO - | awk '{printf "publicIp: %s\\n", $0}'
   `,
 
   Uptime: `
@@ -37,29 +38,29 @@ module.exports.Command = {
 
   CpuInfo: `
     # CPU Model
-    lscpu | grep Model | awk '{$1=""; $2=""; printf "model: %s\\n", $0}' &&
+    lscpu | grep Model | awk '{$1=""; $2=""; printf "cpuModel: %s\\n", $0}' &&
 
     # CPU Architecture
-    lscpu | grep "Architecture" | awk '{$1="architecture:"; print $0}' &&
+    lscpu | grep "Architecture" | awk '{$1="cpuArchitecture:"; print $0}' &&
 
     # CPUs
     lscpu | grep "CPU(s):" | awk '{printf "cpus: %s\\n", $2}' &&
 
     # CPU Max MHz
-    lscpu | grep "max MHz" | awk '{printf "maxMhz: %1.2f\\n", $4}' &&
+    lscpu | grep "max MHz" | awk '{printf "cpuMaxMhz: %1.2f\\n", $4}' &&
 
     # CPU Min MHz
-    lscpu | grep "min MHz" | awk '{printf "minMhz: %1.2f\\n", $4}'
+    lscpu | grep "min MHz" | awk '{printf "cpuMinMhz: %1.2f\\n", $4}'
   `,
 
   CpuLoad: `
     top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "load: %1.0f\\n", $2 + $4}'
+      awk '{printf "cpuLoad: %1.0f\\n", $2 + $4}'
   `,
 
   CpuTemp: `
     cat /sys/class/thermal/thermal_zone0/temp |
-      awk '{printf "temp: %1.0f\\n", $0 / 1000}'
+      awk '{printf "cpuTemp: %1.0f\\n", $0 / 1000}'
   `,
 
   MemUsage: `
@@ -68,18 +69,18 @@ module.exports.Command = {
 
     # Free Memory
     grep MemFree /proc/meminfo |
-      awk -v total="$total" '{printf "free: %0.2f\\n", $2 / total}' &&
+      awk -v total="$total" '{printf "freeMem: %0.2f\\n", $2 / total}' &&
 
     # Available Memory
     grep MemAvailable /proc/meminfo |
-      awk -v total="$total" '{printf "available: %0.2f\\n", $2 / total}' &&
+      awk -v total="$total" '{printf "availableMem: %0.2f\\n", $2 / total}' &&
 
     # Buffers
     grep Buffers /proc/meminfo |
-      awk -v total="$total" '{printf "buffers: %0.2f\\n", $2 / total}' &&
+      awk -v total="$total" '{printf "memBuffers: %0.2f\\n", $2 / total}' &&
 
     # Cached
     grep Cached /proc/meminfo | head -n 1 |
-      awk -v total="$total" '{printf "cached: %0.2f\\n", $2 / total}'
+      awk -v total="$total" '{printf "cachedMem: %0.2f\\n", $2 / total}'
   `
 };

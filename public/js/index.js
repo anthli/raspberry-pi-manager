@@ -104,7 +104,7 @@ $(document).ready(() => {
   // CPU Load chart
   cpuLoadChart = new Highcharts.Chart({
     chart: {
-      renderTo: 'load',
+      renderTo: 'cpuLoad',
       type: 'spline',
       events: {
         load: requestCpuLoad
@@ -153,7 +153,7 @@ $(document).ready(() => {
   // CPU temperature chart
   cpuTempChart = new Highcharts.Chart({
     chart: {
-      renderTo: 'temp',
+      renderTo: 'cpuTemp',
       type: 'spline',
       events: {
         load: requestCpuTemp
