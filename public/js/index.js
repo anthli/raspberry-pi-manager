@@ -60,11 +60,21 @@ const requestMemUsage = () => {
     url: '/memusage',
     dataType: 'json',
     success: (data) => {
-      console.log(data);
-      // let series = memUsageChart.series[0];
-      // let shift = series.data.length > 20;
-      // let date = new Date().getTime();
-      // series.addPoint([date, data.available * 1], true, shift);
+      // Set each value out of 100 instead of 1
+      memUsageChart.series[0].setData([
+        {
+          value: Math.round(data.freeMem * 100)
+        },
+        {
+          value: Math.round(data.availableMem * 100)
+        },
+        {
+          value: Math.round(data.bufferedMem * 100)
+        },
+        {
+          value: Math.round(data.cachedMem * 100)
+        }
+      ]);
     },
     complete: setTimeout(requestMemUsage, 1 * 1000)
   });
@@ -110,29 +120,30 @@ $(document).ready(() => {
         load: requestCpuLoad
       }
     },
-
     title: '',
     legend: false,
-
     plotOptions: {
       spline: {
-        enableMouseTracking: false,
         marker: {
           enabled: false
         }
       }
     },
-
     tooltip: {
-      enabled: false
+      xDateFormat: '%a %b %d %H:%M:%S',
+      valuePrefix: '%'
     },
-
     xAxis: {
       type: 'datetime',
       tickPixelInterval: 100,
-      minRange: 20
+      minRange: 20,
+      labels: {
+        format: '{value: %H:%M:%S}'
+      },
+      title: {
+        text: 'Time'
+      }
     },
-
     yAxis: {
       min: 0,
       max: 100,
@@ -145,8 +156,8 @@ $(document).ready(() => {
         text: 'Load (%)'
       }
     },
-
     series: [{
+      name: 'Load',
       color: '#76a833',
       data: []
     }]
@@ -161,29 +172,30 @@ $(document).ready(() => {
         load: requestCpuTemp
       }
     },
-
     title: '',
     legend: false,
-
     plotOptions: {
       spline: {
-        enableMouseTracking: false,
         marker: {
           enabled: false
         }
       }
     },
-
     tooltip: {
-      enabled: false
+      xDateFormat: '%a %b %d %H:%M:%S',
+      valueSuffix: '(\xB0C)'
     },
-
     xAxis: {
       type: 'datetime',
       tickPixelInterval: 100,
-      minRange: 20
+      minRange: 20,
+      labels: {
+        format: '{value: %H:%M:%S}'
+      },
+      title: {
+        text: 'Time'
+      }
     },
-
     yAxis: {
       min: 0,
       max: 100,
@@ -196,8 +208,8 @@ $(document).ready(() => {
         text: 'Temperature (\xB0C)'
       }
     },
-
     series: [{
+      name: 'Temp',
       color: '#ba1744',
       data: []
     }]
@@ -207,50 +219,55 @@ $(document).ready(() => {
   memUsageChart = new Highcharts.Chart({
     chart: {
       renderTo: 'memUsage',
-      type: 'spline',
+      type: 'bar',
       events: {
         load: requestMemUsage
       }
     },
-
     title: '',
     legend: false,
-
     plotOptions: {
-      spline: {
-        enableMouseTracking: false,
-        marker: {
-          enabled: false
-        }
+      bar: {
+        enableMouseTracking: false
       }
     },
-
     tooltip: {
-      enabled: false
+      valuePrefix: '%'
     },
-
     xAxis: {
-      type: 'datetime',
-      tickPixelInterval: 100,
-      minRange: 20
+      categories: [
+        'Free',
+        'Available',
+        'Buffered',
+        'Cached'
+      ]
     },
-
     yAxis: {
       min: 0,
       max: 100,
-      minPadding: 0.2,
-      maxPadding: 0.2,
-      labels: {
-        format: '{value: 1.0f}'
-      },
       title: {
-        text: 'Temperature (\xB0C)'
+        text: 'Percentage (%)'
       }
     },
-
     series: [{
-      color: '#ba1744',
-      data: []
+      data: [
+        {
+          value: 0,
+          color: 'red'
+        },
+        {
+          value: 0,
+          color: 'green'
+        },
+        {
+          value: 0,
+          color: 'blue'
+        },
+        {
+          value: 0,
+          color: 'orange'
+        }
+      ]
     }]
   });
 });

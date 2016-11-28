@@ -75,11 +75,11 @@ module.exports.Command = {
     grep MemAvailable /proc/meminfo |
       awk -v total="$total" '{printf "availableMem: %0.2f\\n", $2 / total}' &&
 
-    # Buffers
+    # Buffered Memory
     grep Buffers /proc/meminfo |
-      awk -v total="$total" '{printf "memBuffers: %0.2f\\n", $2 / total}' &&
+      awk -v total="$total" '{printf "bufferedMem: %0.2f\\n", $2 / total}' &&
 
-    # Cached
+    # Cached Memory
     grep Cached /proc/meminfo | head -n 1 |
       awk -v total="$total" '{printf "cachedMem: %0.2f\\n", $2 / total}'
   `
