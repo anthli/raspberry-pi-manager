@@ -138,7 +138,6 @@ $(document).ready(() => {
       max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
-      startOnTick: false,
       labels: {
         format: '{value: 1.0f}'
       },
@@ -190,7 +189,57 @@ $(document).ready(() => {
       max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
-      startOnTick: false,
+      labels: {
+        format: '{value: 1.0f}'
+      },
+      title: {
+        text: 'Temperature (\xB0C)'
+      }
+    },
+
+    series: [{
+      color: '#ba1744',
+      data: []
+    }]
+  });
+
+  // Memory usage chart
+  memUsageChart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'memUsage',
+      type: 'spline',
+      events: {
+        load: requestMemUsage
+      }
+    },
+
+    title: '',
+    legend: false,
+
+    plotOptions: {
+      spline: {
+        enableMouseTracking: false,
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    tooltip: {
+      enabled: false
+    },
+
+    xAxis: {
+      type: 'datetime',
+      tickPixelInterval: 100,
+      minRange: 20
+    },
+
+    yAxis: {
+      min: 0,
+      max: 100,
+      minPadding: 0.2,
+      maxPadding: 0.2,
       labels: {
         format: '{value: 1.0f}'
       },
