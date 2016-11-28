@@ -64,6 +64,6 @@ module.exports.Command = {
 
   AvailableMem: `
     grep MemAvailable /proc/meminfo |
-      awk '{printf "available: %1.0f MB\\n", $2 / 1000}'
+      awk '{printf "available: %1.0f\\n", $2 / 1000}'
   `
 };

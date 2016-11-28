@@ -134,11 +134,8 @@ $(document).ready(() => {
     yAxis: {
       minPadding: 0.2,
       maxPadding: 0.2,
-      labels: {
-        format: '{value: 1.0f}%'
-      },
       title: {
-        text: 'Load'
+        text: 'Load (%)'
       }
     },
 
