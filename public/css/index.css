@@ -21,8 +21,8 @@ html, body {
 }
 
 .title {
- color: #ffffff;
- font-size: 36px;
+  color: #ffffff;
+  font-size: 36px;
 }
 
 #content {
@@ -52,13 +52,13 @@ html, body {
 }
 
 .card-section-title {
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 30px;
 }
 
 .card-section-content {
   font-size: 14px;
-  margin: 15px 0;
+  margin: 5px 0 15px 0;
 }
 
 @media screen and (min-width: 500px) {
@@ -80,7 +80,7 @@ html, body {
   }
 
   .card-section-title {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .card-section-content {
@@ -106,7 +106,7 @@ html, body {
   }
 
   .card-section-title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .card-section-content {

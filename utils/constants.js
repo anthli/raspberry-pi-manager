@@ -54,7 +54,7 @@ module.exports.Command = {
 
   CpuLoad: `
     top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "load: %0.1f\\n", $2 + $4}'
+      awk '{printf "load: %1.0f\\n", $2 + $4}'
   `,
 
   CpuTemp: `

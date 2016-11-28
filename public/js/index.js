@@ -51,7 +51,7 @@ const requestCpuTemp = () => {
       let date = new Date().getTime();
       series.addPoint([date, data.temp * 1], true, shift);
     },
-    complete: setTimeout(requestCpuTemp, 2 * 1000)
+    complete: setTimeout(requestCpuTemp, 1 * 1000)
   });
 };
 
@@ -60,13 +60,11 @@ const requestAvailableMem = () => {
     url: '/availablemem',
     dataType: 'json',
     success: (data) => {
-      writeJsonToHtml(data);
-      // let series = availableMemChart.series[0];
       // let shift = series.data.length > 20;
       // let date = new Date().getTime();
       // series.addPoint([date, data.available * 1], true, shift);
     },
-    complete: setTimeout(requestAvailableMem, 2 * 1000)
+    complete: setTimeout(requestAvailableMem, 1 * 1000)
   });
 };
 
@@ -101,6 +99,7 @@ $(document).ready(() => {
     }
   });
 
+  // CPU Load chart
   cpuLoadChart = new Highcharts.Chart({
     chart: {
       renderTo: 'load',
@@ -136,7 +135,7 @@ $(document).ready(() => {
       minPadding: 0.2,
       maxPadding: 0.2,
       labels: {
-        format: '{value: 0.2f}%'
+        format: '{value: 1.0f}%'
       },
       title: {
         text: 'Load'
@@ -149,6 +148,7 @@ $(document).ready(() => {
     }]
   });
 
+  // CPU temperature chart
   cpuTempChart = new Highcharts.Chart({
     chart: {
       renderTo: 'temp',
