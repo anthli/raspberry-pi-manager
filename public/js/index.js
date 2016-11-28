@@ -130,12 +130,15 @@ $(document).ready(() => {
     xAxis: {
       type: 'datetime',
       tickPixelInterval: 100,
-      maxZoom: 20 * 1000
+      minRange: 20
     },
 
     yAxis: {
+      min: 0,
+      max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
+      startOnTick: false,
       labels: {
         format: '{value: 1.0f}'
       },
@@ -179,12 +182,15 @@ $(document).ready(() => {
     xAxis: {
       type: 'datetime',
       tickPixelInterval: 100,
-      maxZoom: 20 * 1000
+      minRange: 20
     },
 
     yAxis: {
+      min: 0,
+      max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
+      startOnTick: false,
       labels: {
         format: '{value: 1.0f}'
       },
