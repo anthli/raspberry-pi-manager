@@ -35,7 +35,7 @@ const requestCpuLoad = () => {
       let series = cpuLoadChart.series[0];
       let shift = series.data.length > 20;
       let date = new Date().getTime();
-      series.addPoint([date, data.load * 1], true, shift);
+      series.addPoint([date, data.cpuLoad * 1], true, shift);
     },
     complete: setTimeout(requestCpuLoad, 1 * 1000)
   });
@@ -49,7 +49,7 @@ const requestCpuTemp = () => {
       let series = cpuTempChart.series[0];
       let shift = series.data.length > 20;
       let date = new Date().getTime();
-      series.addPoint([date, data.temp * 1], true, shift);
+      series.addPoint([date, data.cpuTemp * 1], true, shift);
     },
     complete: setTimeout(requestCpuTemp, 1 * 1000)
   });
