@@ -27,12 +27,12 @@ module.exports.Command = {
     grep MemTotal /proc/meminfo | awk '{printf "total: %1.0f MB\\n", $2 / 1000}'
   `,
 
-  Uptime: `
-    uptime -p | awk '{printf "uptime: %s\\n", $0}'
-  `,
-
   PublicIp: `
     wget http://ipinfo.io/ip -qO - | awk '{printf "ip: %s\\n", $0}'
+  `,
+
+  Uptime: `
+    uptime -p | awk '{printf "uptime: %s\\n", $0}'
   `,
 
   CpuInfo: `
@@ -54,12 +54,12 @@ module.exports.Command = {
 
   CpuLoad: `
     top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "load: %s\\n", $2 + $4}'
+      awk '{printf "load: %0.1f\\n", $2 + $4}'
   `,
 
   CpuTemp: `
     cat /sys/class/thermal/thermal_zone0/temp |
-      awk '{printf "temp: %1.1f\\n", $0 / 1000}'
+      awk '{printf "temp: %1.0f\\n", $0 / 1000}'
   `,
 
   AvailableMem: `

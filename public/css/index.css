@@ -113,3 +113,7 @@ html, body {
     font-size: 18px;
   }
 }
+
+.highcharts-credits {
+  visibility: hidden;
+}

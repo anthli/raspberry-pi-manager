@@ -1,6 +1,8 @@
 'use strict';
 
 let cpuLoadChart;
+let cpuTempChart;
+let availableMemChart;
 
 const endpoints = [
   '/sysinfo',
@@ -31,9 +33,9 @@ const requestCpuLoad = () => {
     dataType: 'json',
     success: (data) => {
       let series = cpuLoadChart.series[0];
-      let shift = series.data.length > 10;
+      let shift = series.data.length > 20;
       let date = new Date().getTime();
-      series.addPoint([date, data.load], true, shift);
+      series.addPoint([date, data.load * 1], true, shift);
     },
     complete: setTimeout(requestCpuLoad, 1 * 1000)
   });
@@ -43,7 +45,12 @@ const requestCpuTemp = () => {
   $.ajax({
     url: '/cputemp',
     dataType: 'json',
-    success: (data) => writeJsonToHtml(data),
+    success: (data) => {
+      let series = cpuTempChart.series[0];
+      let shift = series.data.length > 20;
+      let date = new Date().getTime();
+      series.addPoint([date, data.temp * 1], true, shift);
+    },
     complete: setTimeout(requestCpuTemp, 2 * 1000)
   });
 };
@@ -52,19 +59,26 @@ const requestAvailableMem = () => {
   $.ajax({
     url: '/availablemem',
     dataType: 'json',
-    success: (data) => writeJsonToHtml(data),
-    complete: setTimeout(requestCpuTemp, 2 * 1000)
+    success: (data) => {
+      writeJsonToHtml(data);
+      // let series = availableMemChart.series[0];
+      // let shift = series.data.length > 20;
+      // let date = new Date().getTime();
+      // series.addPoint([date, data.available * 1], true, shift);
+    },
+    complete: setTimeout(requestAvailableMem, 2 * 1000)
   });
 };
 
-const requestUptime = () => {
+// Request the uptime every minute
+(() => {
   $.ajax({
     url: '/uptime',
     dataType: 'json',
     success: (data) => writeJsonToHtml(data),
-    complete: setTimeout(requestCpuTemp, 60 * 1000)
+    complete: setTimeout(this, 60 * 1000)
   });
-};
+})();
 
 $(document).ready(() => {
   // Request static data
@@ -77,6 +91,8 @@ $(document).ready(() => {
       }
     });
   });
+
+  // Highcharts configuration
 
   // Don't use UTC time for time axes
   Highcharts.setOptions({
@@ -95,12 +111,24 @@ $(document).ready(() => {
     },
 
     title: '',
-
     legend: false,
+
+    plotOptions: {
+      spline: {
+        enableMouseTracking: false,
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    tooltip: {
+      enabled: false
+    },
 
     xAxis: {
       type: 'datetime',
-      tickPixelInterval: 150,
+      tickPixelInterval: 100,
       maxZoom: 20 * 1000
     },
 
@@ -108,16 +136,60 @@ $(document).ready(() => {
       minPadding: 0.2,
       maxPadding: 0.2,
       labels: {
-        format: '{value: 0.1f}'
+        format: '{value: 0.2f}%'
       },
       title: {
-        text: 'Temperature (\xB0C)',
-        margin: 80
+        text: 'Load'
       }
     },
 
     series: [{
-      name: 'Random data',
+      color: '#76a833',
+      data: []
+    }]
+  });
+
+  cpuTempChart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'temp',
+      type: 'spline',
+      events: {
+        load: requestCpuTemp
+      }
+    },
+
+    title: '',
+    legend: false,
+
+    plotOptions: {
+      spline: {
+        enableMouseTracking: false,
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    tooltip: {
+      enabled: false
+    },
+
+    xAxis: {
+      type: 'datetime',
+      tickPixelInterval: 100,
+      maxZoom: 20 * 1000
+    },
+
+    yAxis: {
+      minPadding: 0.2,
+      maxPadding: 0.2,
+      title: {
+        text: 'Temperature (\xB0C)'
+      }
+    },
+
+    series: [{
+      color: '#ba1744',
       data: []
     }]
   });
