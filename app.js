@@ -21,11 +21,12 @@ app.get('/', (req, res) => {
   res.sendFile(constants.IndexHtml);
 });
 
-// Dynamically retrieve the command to use based on the route parameter
+// Dynamically retrieve the command to use based on the route
 app.get('/:command', (req, res) => {
-  // Isolate the matching command
+  // Isolate the command that matches the route
+  let command = req.params.command.replace('-', '');
   let key = _.filter(Object.keys(constants.Command), key => {
-    return req.params.command === key.toLowerCase();
+    return key.toLowerCase() === command;
   })[0];
 
   sysinfo.sendInfo(res, constants.Command[key]);

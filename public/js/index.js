@@ -1,6 +1,6 @@
 'use strict';
 
-let cpuLoadChart;
+let cpuUsageChart;
 let cpuTempChart;
 let memUsageChart;
 
@@ -27,23 +27,23 @@ const writeJsonToHtml = (json) => {
   });
 };
 
-const requestCpuLoad = () => {
+const requestCpuUsage = () => {
   $.ajax({
-    url: '/cpuload',
+    url: '/cpu-usage',
     dataType: 'json',
     success: (data) => {
-      let series = cpuLoadChart.series[0];
+      let series = cpuUsageChart.series[0];
       let shift = series.data.length > 20;
       let date = new Date().getTime();
-      series.addPoint([date, data.cpuLoad * 1], true, shift);
+      series.addPoint([date, data.cpuUsage * 1], true, shift);
     },
-    complete: setTimeout(requestCpuLoad, 1 * 1000)
+    complete: setTimeout(requestCpuUsage, 1 * 1000)
   });
 };
 
 const requestCpuTemp = () => {
   $.ajax({
-    url: '/cputemp',
+    url: '/cpu-temp',
     dataType: 'json',
     success: (data) => {
       let series = cpuTempChart.series[0];
@@ -57,22 +57,22 @@ const requestCpuTemp = () => {
 
 const requestMemUsage = () => {
   $.ajax({
-    url: '/memusage',
+    url: '/mem-usage',
     dataType: 'json',
     success: (data) => {
-      // Set each value out of 100 instead of 1
+      // Set each value to be out of 100 instead of 1
       memUsageChart.series[0].setData([
         {
-          value: Math.round(data.freeMem * 100)
+          y: Math.round(data.freeMem * 100)
         },
         {
-          value: Math.round(data.availableMem * 100)
+          y: Math.round(data.usedMem * 100)
         },
         {
-          value: Math.round(data.bufferedMem * 100)
+          y: Math.round(data.bufferedMem * 100)
         },
         {
-          value: Math.round(data.cachedMem * 100)
+          y: Math.round(data.cachedMem * 100)
         }
       ]);
     },
@@ -111,17 +111,19 @@ $(document).ready(() => {
     }
   });
 
-  // CPU Load chart
-  cpuLoadChart = new Highcharts.Chart({
+  // CPU Usage chart
+  cpuUsageChart = new Highcharts.chart('cpuUsage', {
     chart: {
-      renderTo: 'cpuLoad',
       type: 'spline',
       events: {
-        load: requestCpuLoad
+        load: requestCpuUsage
       }
     },
     title: '',
     legend: false,
+    credits: {
+      enabled: false
+    },
     plotOptions: {
       spline: {
         marker: {
@@ -130,12 +132,12 @@ $(document).ready(() => {
       }
     },
     tooltip: {
-      xDateFormat: '%a %b %d %H:%M:%S',
-      valuePrefix: '%'
+      headerFormat: '',
+      pointFormat: '{point.y}',
+      valueSuffix: '%'
     },
     xAxis: {
       type: 'datetime',
-      tickPixelInterval: 100,
       minRange: 20,
       labels: {
         format: '{value: %H:%M:%S}'
@@ -149,24 +151,20 @@ $(document).ready(() => {
       max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
-      labels: {
-        format: '{value: 1.0f}'
-      },
       title: {
-        text: 'Load (%)'
+        text: 'Usage (%)'
       }
     },
     series: [{
-      name: 'Load',
+      name: 'Usage',
       color: '#76a833',
       data: []
     }]
   });
 
   // CPU temperature chart
-  cpuTempChart = new Highcharts.Chart({
+  cpuTempChart = new Highcharts.chart('cpuTemp', {
     chart: {
-      renderTo: 'cpuTemp',
       type: 'spline',
       events: {
         load: requestCpuTemp
@@ -174,6 +172,9 @@ $(document).ready(() => {
     },
     title: '',
     legend: false,
+    credits: {
+      enabled: false
+    },
     plotOptions: {
       spline: {
         marker: {
@@ -182,12 +183,12 @@ $(document).ready(() => {
       }
     },
     tooltip: {
-      xDateFormat: '%a %b %d %H:%M:%S',
-      valueSuffix: '(\xB0C)'
+      valueSuffix: '(\xB0C)',
+      headerFormat: '',
+      pointFormat: '{point.y}'
     },
     xAxis: {
       type: 'datetime',
-      tickPixelInterval: 100,
       minRange: 20,
       labels: {
         format: '{value: %H:%M:%S}'
@@ -201,9 +202,6 @@ $(document).ready(() => {
       max: 100,
       minPadding: 0.2,
       maxPadding: 0.2,
-      labels: {
-        format: '{value: 1.0f}'
-      },
       title: {
         text: 'Temperature (\xB0C)'
       }
@@ -216,28 +214,27 @@ $(document).ready(() => {
   });
 
   // Memory usage chart
-  memUsageChart = new Highcharts.Chart({
+  memUsageChart = new Highcharts.chart('memUsage', {
     chart: {
-      renderTo: 'memUsage',
-      type: 'bar',
+      type: 'column',
       events: {
         load: requestMemUsage
       }
     },
     title: '',
     legend: false,
-    plotOptions: {
-      bar: {
-        enableMouseTracking: false
-      }
+    credits: {
+      enabled: false
     },
     tooltip: {
-      valuePrefix: '%'
+      valueSuffix: '%',
+      headerFormat: '',
+      pointFormat: '{point.y}'
     },
     xAxis: {
       categories: [
         'Free',
-        'Available',
+        'Used',
         'Buffered',
         'Cached'
       ]
@@ -252,20 +249,20 @@ $(document).ready(() => {
     series: [{
       data: [
         {
-          value: 0,
-          color: 'red'
+          color: '#76a833',
+          y: 0
         },
         {
-          value: 0,
-          color: 'green'
+          color: '#ba1744',
+          y: 0
         },
         {
-          value: 0,
-          color: 'blue'
+          color: '#007dff',
+          y: 0
         },
         {
-          value: 0,
-          color: 'orange'
+          color: '#ffe100',
+          y: 0
         }
       ]
     }]
