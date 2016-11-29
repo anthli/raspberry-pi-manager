@@ -65,21 +65,22 @@ module.exports.Command = {
   MemUsage: `
     # Total Memory
     total=$(free | grep "Mem" | awk '{print $2}') &&
+    echo $total | awk '{printf "totalMem: %s\\n", $0}' &&
 
     # Used Memory
     free | grep "buffers/cache" |
-      awk -v total="$total" '{printf "usedMem: %0.2f\\n", $3 / total}' &&
+      awk -v total="$total" '{printf "usedMem: %s\\n", $3}' &&
 
     # Free Memory
     free | grep "buffers/cache" |
-      awk -v total="$total" '{printf "freeMem: %0.2f\\n", $4 / total}' &&
+      awk -v total="$total" '{printf "freeMem: %s\\n", $4}' &&
 
     # Buffered Memory
     free | grep "Mem" |
-      awk -v total="$total" '{printf "bufferedMem: %0.2f\\n", $6 / total}' &&
+      awk -v total="$total" '{printf "bufferedMem: %s\\n", $6}' &&
 
     # Cached Memory
     free | grep "Mem" |
-      awk -v total="$total" '{printf "cachedMem: %0.2f\\n", $7 / total}'
+      awk -v total="$total" '{printf "cachedMem: %s\\n", $7}'
   `
 };

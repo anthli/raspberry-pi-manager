@@ -60,19 +60,18 @@ const requestMemUsage = () => {
     url: '/mem-usage',
     dataType: 'json',
     success: (data) => {
-      // Set each value to be out of 100 instead of 1
       memUsageChart.series[0].setData([
         {
-          y: Math.round(data.freeMem * 100)
+          y: Math.round(data.freeMem / 1000)
         },
         {
-          y: Math.round(data.usedMem * 100)
+          y: Math.round(data.usedMem / 1000)
         },
         {
-          y: Math.round(data.bufferedMem * 100)
+          y: Math.round(data.bufferedMem / 1000)
         },
         {
-          y: Math.round(data.cachedMem * 100)
+          y: Math.round(data.cachedMem / 1000)
         }
       ]);
     },
@@ -183,7 +182,7 @@ $(document).ready(() => {
       }
     },
     tooltip: {
-      valueSuffix: '(\xB0C)',
+      valueSuffix: '\xB0C',
       headerFormat: '',
       pointFormat: '{point.y}'
     },
@@ -227,7 +226,7 @@ $(document).ready(() => {
       enabled: false
     },
     tooltip: {
-      valueSuffix: '%',
+      valueSuffix: ' MB',
       headerFormat: '',
       pointFormat: '{point.y}'
     },
@@ -241,9 +240,8 @@ $(document).ready(() => {
     },
     yAxis: {
       min: 0,
-      max: 100,
       title: {
-        text: 'Percentage (%)'
+        text: 'Usage (MB)'
       }
     },
     series: [{
