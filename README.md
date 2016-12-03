@@ -7,6 +7,7 @@ Pi.
 - System information (hostname, OS, etc.)
 - CPU info and readings
 - Memory readings
+- Live charts for monitoring
 
 ## Features to be added
 - Possible layer of controls (restart device, reading refresh rate, etc.)
@@ -30,4 +31,5 @@ $ yarn
 $ npm run dev
 ```
 
-The server will now be listening on port 3000.
+The server will now be listening on port 3000 for production, or 4000 for
+development.
