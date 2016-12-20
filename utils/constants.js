@@ -2,12 +2,14 @@
 
 const path = require('path');
 
-const dir = __dirname;
-const publicDir = path.join(dir, '../public/');
-const nodeModules = path.join(__dirname, '../node_modules/');
+const dir = path.resolve(__dirname, '../');
+const distDir = path.join(dir, 'dist/');
+const publicDir = path.join(dir, 'public/');
+const nodeModules = path.join(dir, 'node_modules/');
 
+module.exports.DistDir = distDir;
 module.exports.PublicDir = publicDir;
-module.exports.IndexHtml = path.join(publicDir, 'index.html');
+module.exports.IndexHtml = path.join(dir, 'index.html');
 
 module.exports.NodeModules = {
   JQuery: path.join(nodeModules, 'jquery/dist/'),
@@ -16,10 +18,11 @@ module.exports.NodeModules = {
 };
 
 module.exports.Command = {
-  SysInfo: `
-    # Hostname
-    hostname | awk '{printf "hostname: %s\\n", $0}' &&
+  Hostname: `
+    hostname | awk '{printf "hostname: %s\\n", $0}'
+  `,
 
+  SysInfo: `
     # Operating System
     lsb_release -d | awk '{$1=""; printf "os: %s\\n", $0}' &&
 

@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Raspberry Pi Monitor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi Monitor</title>
 
     <!-- Load CSS files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/bc01f253ed.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="css/index.css" media="screen">
-
-    <!-- Load JS files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/scripts/jquery.min.js"><\/script>')</script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script>window.Highcharts || document.write('<script src="/scripts/highcharts.js"><\/script>')</script>
-    <script src="/scripts/lodash.min.js"></script>
-    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="dist/css/main.min.css" media="screen">
   </head>
 
   <body>
-    <div id="header">
-      <div class="title-bar">
-        <div id="hostname" class="title">./</div>
-      </div>
-    </div>
+    <div id="raspberry-pi-monitor"></div>
 
-    <div id="content">
+    <script src="dist/js/main.js"></script>
+
+    <!--<div id="content">
       <div class="card">
         <div class="card-icon">
           <i class="fa fa-desktop"></i>
@@ -110,6 +100,6 @@
           <div id="memUsage" class="card-section-content"></div>
         </div>
       </div>
-    </div>
+    </div>-->
   </body>
 </html>

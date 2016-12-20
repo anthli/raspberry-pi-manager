@@ -1,30 +1,49 @@
 {
   "name": "raspbery-pi-monitor",
-  "version": "0.1.6",
+  "version": "1.1.0",
   "description": "Raspberry Pi Monitor",
   "main": "app.js",
   "author": "Anthony Li",
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Phyo Naung",
-      "email": "ptnaung@cpp.edu"
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anthli/raspberry-pi-monitor.git"
   },
   "dependencies": {
+    "axios": "latest",
     "express": "latest",
     "highcharts": "latest",
-    "jquery": "latest",
-    "lodash": "latest"
+    "lodash": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
-    "nodemon": "latest"
+    "babel": "latest",
+    "babel-cli": "latest",
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-es2015": "latest",
+    "babel-preset-react": "latest",
+    "del": "latest",
+    "electron": "latest",
+    "electron-builder": "latest",
+    "electron-packager": "latest",
+    "electron-rebuild": "latest",
+    "gulp": "latest",
+    "gulp-concat-css": "latest",
+    "gulp-eslint": "latest",
+    "gulp-sass": "latest",
+    "gulp-util": "latest",
+    "nodemon": "latest",
+    "run-sequence": "latest",
+    "webpack": "latest",
+    "webpack-stream": "latest"
   },
   "scripts": {
-    "dev": "nodemon app.js"
+    "start": "nodemon app.js",
+    "watch": "gulp watch",
+    "build": "gulp build",
+    "portable": "build --dir",
+    "dist": "build"
   }
 }

@@ -13,6 +13,7 @@ const port = process.env.PORT || 4000;
 
 // Server static files
 app.use(express.static(constants.PublicDir));
+app.use('/dist', express.static(constants.DistDir));
 app.use('/scripts', express.static(constants.NodeModules.JQuery));
 app.use('/scripts', express.static(constants.NodeModules.Highcharts));
 app.use('/scripts', express.static(constants.NodeModules.Lodash));
