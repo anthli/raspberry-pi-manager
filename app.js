@@ -9,14 +9,11 @@ const sysinfo = require('./utils/sysinfo');
 const app = express();
 
 const dir = __dirname;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 // Server static files
 app.use(express.static(constants.PublicDir));
 app.use('/dist', express.static(constants.DistDir));
-app.use('/scripts', express.static(constants.NodeModules.JQuery));
-app.use('/scripts', express.static(constants.NodeModules.Highcharts));
-app.use('/scripts', express.static(constants.NodeModules.Lodash));
 
 app.get('/', (req, res) => {
   res.sendFile(constants.IndexHtml);
@@ -24,8 +21,8 @@ app.get('/', (req, res) => {
 
 // Dynamically retrieve the command to use based on the route
 app.get('/:command', (req, res) => {
-  // Isolate the command that matches the route
-  let command = req.params.command.replace('-', '');
+  // Isolate the command that matches the route by removing all hyphens
+  let command = req.params.command.replace(/-/g, '');
   let key = _.filter(Object.keys(constants.Command), key => {
     return key.toLowerCase() === command;
   })[0];

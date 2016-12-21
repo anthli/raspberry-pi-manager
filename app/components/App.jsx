@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 
 import DeviceInfo from './DeviceInfo.jsx';
 import CpuInfo from './CpuInfo.jsx';
+import Monitor from './Monitor.jsx';
 import NavBar from './NavBar.jsx';
 
 export default class App extends Component {
@@ -15,6 +16,7 @@ export default class App extends Component {
         <div id="content">
           <DeviceInfo />
           <CpuInfo />
+          <Monitor />
         </div>
       </div>
     );

@@ -18,54 +18,136 @@ module.exports.NodeModules = {
 };
 
 module.exports.Command = {
+  // System information
   Hostname: `
-    hostname | awk '{printf "hostname: %s\\n", $0}'
+    hostname | awk '{
+      printf "{ \\
+        \\"title\\": \\"Hostname\\", \\
+        \\"hostname\\": \\"%s\\" \\
+      }",
+      $0
+    }'
   `,
 
-  SysInfo: `
-    # Operating System
-    lsb_release -d | awk '{$1=""; printf "os: %s\\n", $0}' &&
+  OperatingSystem: `
+    lsb_release -d | awk '{
+      $1="";
+      printf "{ \\
+        \\"title\\": \\"Operating System\\", \\
+        \\"os\\": \\"%s\\" \\
+      }",
+      $0
+    }'
+  `,
 
+  TotalMemory: `
     # Total Memory
-    free | grep "Mem" | awk '{printf "totalMem: %1.0f MB\\n", $2 / 1000}'
+    free | grep "Mem" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Total Memory\\", \\
+        \\"totalMem\\": \\"%1.0f MB\\" \\
+      }",
+      $2 / 1000
+    }'
   `,
 
   PublicIp: `
-    wget http://ipinfo.io/ip -qO - | awk '{printf "publicIp: %s\\n", $0}'
+    wget http://ipinfo.io/ip -qO - | awk '{
+      printf "{ \\
+        \\"title\\": \\"Public IP\\", \\
+        \\"publicIp\\": \\"%s\\" \\
+      }",
+      $0
+    }'
   `,
 
   Uptime: `
-    uptime -p | awk '{printf "uptime: %s\\n", $0}'
+    uptime -p | awk '{
+      printf "{ \\
+        \\"title\\": \\"Uptime\\", \\
+        \\"uptime\\": \\"%s\\" \\
+      }",
+      $0
+    }'
   `,
 
-  CpuInfo: `
+  // CPU information
+  CpuModel: `
     # CPU Model
-    lscpu | grep "Model" | awk '{$1=""; $2=""; printf "cpuModel: %s\\n", $0}' &&
-
-    # CPU Architecture
-    lscpu | grep "Architecture" | awk '{$1="cpuArchitecture:"; print $0}' &&
-
-    # CPUs
-    lscpu | grep "CPU(s):" | awk '{printf "cpus: %s\\n", $2}' &&
-
-    # CPU Max MHz
-    lscpu | grep "max MHz" | awk '{printf "cpuMaxMhz: %1.0f MHz\\n", $4}' &&
-
-    # CPU Min MHz
-    lscpu | grep "min MHz" | awk '{printf "cpuMinMhz: %1.0f MHz\\n", $4}'
+    lscpu | grep "Model" | awk '{
+      $1="";
+      $2="";
+      printf "{ \\
+        \\"title\\": \\"Model\\", \\
+        \\"cpuModel\\": \\"%s\\" \\
+      }",
+      $0
+    }'
   `,
 
+  CpuArchitecture: `
+    lscpu | grep "Architecture" | awk '{
+      $1="";
+      printf "{ \\
+        \\"title\\": \\"Architecture\\", \\
+        \\"cpuArchitecture\\": \\"%s\\" \\
+      }",
+      $0
+    }'
+  `,
+
+  CpuCount: `
+    lscpu | grep "CPU(s):" | awk '{
+      printf "{ \\
+        \\"title\\": \\"CPUs\\", \\
+        \\"cpus\\": \\"%s\\" \\
+      }",
+      $2
+    }'
+  `,
+
+  CpuMaxClock: `
+    lscpu | grep "max MHz" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Max Clock Speed\\", \\
+        \\"cpuMaxMhz\\": \\"%1.0f MHz\\" \\
+      }",
+      $4
+    }'
+  `,
+
+  CpuMinClock: `
+    lscpu | grep "min MHz" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Min Clock Speed\\", \\
+        \\"cpuMinMhz\\": \\"%1.0f MHz\\" \\
+      }",
+      $4
+    }'
+  `,
+
+  // Monitoring information
   CpuUsage: `
     top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "cpuUsage: %1.0f\\n", $2 + $4}'
+      awk '{printf "{
+        \\"title\\": \\"CPU Usage\\",
+        \\"cpuUsage\\": \\"%1.0f\\"
+      }",
+      $2 + $4
+    }'
   `,
 
   CpuTemp: `
     cat /sys/class/thermal/thermal_zone0/temp |
-      awk '{printf "cpuTemp: %1.0f\\n", $0 / 1000}'
+      awk '{printf "{
+        \\"title\\": \\"CPU Temperature\\",
+        \\"cpuTemp\\": \\"%1.0f\\"
+      }",
+      $0 / 1000
+    }'
   `,
 
-  MemUsage: `
+  UsedMemory: `
     # Total Memory
     total=$(free | grep "Mem" | awk '{print $2}') &&
     echo $total | awk '{printf "totalMem: %s\\n", $0}' &&

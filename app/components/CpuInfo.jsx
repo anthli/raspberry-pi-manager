@@ -11,19 +11,24 @@ export default class CpuInfo extends Component {
     super();
 
     this.state = {
-
+      cpuInfo: []
     };
   }
 
   componentDidMount() {
     // Get the CPU information
-    request('GET', '/cpu-info')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    let modelReq = request('GET', '/cpu-model');
+    let architectureReq = request('GET', '/cpu-architecture');
+    let countReq = request('GET', '/cpu-count');
+    let maxClockReq = request('GET', '/cpu-max-clock');
+    let minClockReq = request('GET', '/cpu-min-clock');
+
+    let promises = [modelReq, architectureReq, maxClockReq, minClockReq];
+    Promise.all(promises).then(res => {
+      let flatRes = [].concat.apply([], res);
+
+      this.setState({cpuInfo: flatRes});
+    });
   }
 
   render() {
@@ -31,7 +36,7 @@ export default class CpuInfo extends Component {
       <Card
         icon="fa fa-microchip"
         title="CPU Information"
-        sections=""
+        sections={this.state.cpuInfo}
       />
     );
   }

@@ -16,7 +16,7 @@ export default class NavBar extends Component {
   componentDidMount() {
     request('GET', '/hostname')
       .then(res => {
-        this.setState({hostname: res.hostname});
+        this.setState({hostname: res[0].hostname});
       })
       .catch(err => {
         console.error(err);

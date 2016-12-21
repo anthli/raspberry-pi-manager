@@ -11,39 +11,36 @@ export default class DeviceInfo extends Component {
     super();
 
     this.state = {
-      sysinfo: {},
-      uptime: ''
+      sysInfo: []
     };
   }
 
   componentDidMount() {
     // Get the system information
-    request('GET', '/sys-info')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    let osReq = request('GET', '/operating-system');
+    let totalMemReq = request('GET', '/total-memory');
+    let publicIpReq = request('GET', '/public-ip');
+    let uptimeReq = request('GET', '/uptime');
 
-    // Get the uptime
-    request('GET', '/uptime')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    let promises = [osReq, totalMemReq, publicIpReq, uptimeReq];
+    Promise.all(promises).then(res => {
+      let flatRes = [].concat.apply([], res);
 
-    // Request the uptime every minute
+      this.setState({sysInfo: flatRes});
+    });
+
+    // Request the uptime every minute. Update the state with the system
+    // information containing the new uptime
     setInterval(() => {
-      request('GET', '/uptime')
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      uptimeReq.then(res => {
+        let newSysInfo = this.state.sysInfo.slice();
+        newSysInfo[3].uptime = res[0].uptime;
+
+        this.setState({sysInfo: newSysInfo});
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }, 60 * 1000);
   }
 
@@ -52,7 +49,7 @@ export default class DeviceInfo extends Component {
       <Card
         icon="fa fa-desktop"
         title="Device Information"
-        sections=""
+        sections={this.state.sysInfo}
       />
     );
   }
