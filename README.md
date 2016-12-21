@@ -1,7 +1,7 @@
 # Raspberry Pi Monitor
 
-A Node.js server that monitors the status and system information of a Raspberry
-Pi.
+A Node.js server using React for monitoring the status and system information of
+a Raspberry Pi.
 
 ## Features
 - System information (hostname, OS, etc.)
