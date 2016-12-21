@@ -1,6 +1,6 @@
 {
   "name": "raspbery-pi-monitor",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Raspberry Pi Monitor",
   "main": "app.js",
   "author": "Anthony Li",
@@ -10,7 +10,6 @@
     "url": "git+https://github.com/anthli/raspberry-pi-monitor.git"
   },
   "dependencies": {
-    "axios": "latest",
     "express": "latest",
     "highcharts": "latest",
     "lodash": "latest",

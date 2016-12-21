@@ -5,17 +5,10 @@ const path = require('path');
 const dir = path.resolve(__dirname, '../');
 const distDir = path.join(dir, 'dist/');
 const publicDir = path.join(dir, 'public/');
-const nodeModules = path.join(dir, 'node_modules/');
 
 module.exports.DistDir = distDir;
 module.exports.PublicDir = publicDir;
 module.exports.IndexHtml = path.join(dir, 'index.html');
-
-module.exports.NodeModules = {
-  JQuery: path.join(nodeModules, 'jquery/dist/'),
-  Highcharts: path.join(nodeModules, 'highcharts/'),
-  Lodash: path.join(nodeModules, 'lodash/')
-};
 
 module.exports.Command = {
   // System information
@@ -37,17 +30,6 @@ module.exports.Command = {
         \\"os\\": \\"%s\\" \\
       }",
       $0
-    }'
-  `,
-
-  TotalMemory: `
-    # Total Memory
-    free | grep "Mem" | awk '{
-      printf "{ \\
-        \\"title\\": \\"Total Memory\\", \\
-        \\"totalMem\\": \\"%1.0f MB\\" \\
-      }",
-      $2 / 1000
     }'
   `,
 
@@ -73,7 +55,6 @@ module.exports.Command = {
 
   // CPU information
   CpuModel: `
-    # CPU Model
     lscpu | grep "Model" | awk '{
       $1="";
       $2="";
@@ -126,46 +107,74 @@ module.exports.Command = {
     }'
   `,
 
-  // Monitoring information
   CpuUsage: `
-    top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 |
-      awk '{printf "{
-        \\"title\\": \\"CPU Usage\\",
-        \\"cpuUsage\\": \\"%1.0f\\"
+    top -b -n 2 -d 0.5 | grep "Cpu(s)" | tail -n 1 | awk '{
+      printf "{ \\
+        \\"title\\": \\"CPU Usage\\", \\
+        \\"cpuUsage\\": \\"%1.0f\\" \\
       }",
       $2 + $4
     }'
   `,
 
   CpuTemp: `
-    cat /sys/class/thermal/thermal_zone0/temp |
-      awk '{printf "{
-        \\"title\\": \\"CPU Temperature\\",
-        \\"cpuTemp\\": \\"%1.0f\\"
+    cat /sys/class/thermal/thermal_zone0/temp | awk '{
+      printf "{ \\
+        \\"title\\": \\"CPU Temperature\\", \\
+        \\"cpuTemp\\": \\"%1.0f\\" \\
       }",
       $0 / 1000
     }'
   `,
 
+  // Memory information
+  TotalMemory: `
+    free | grep "Mem" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Total Memory\\", \\
+        \\"totalMem\\": \\"%1.0f MB\\" \\
+      }",
+      $2 / 1000
+    }'
+  `,
+
+  FreeMemory: `
+    free | grep "buffers/cache" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Free Memory\\", \\
+        \\"freeMem\\": \\"%s\\" \\
+      }",
+      $4
+    }'
+  `,
+
   UsedMemory: `
-    # Total Memory
-    total=$(free | grep "Mem" | awk '{print $2}') &&
-    echo $total | awk '{printf "totalMem: %s\\n", $0}' &&
+    free | grep "buffers/cache" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Used Memory\\", \\
+        \\"usedMem\\": \\"%s\\" \\
+      }",
+      $3
+    }'
+  `,
 
-    # Used Memory
-    free | grep "buffers/cache" |
-      awk -v total="$total" '{printf "usedMem: %s\\n", $3}' &&
+  BufferedMemory: `
+    free | grep "Mem" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Buffered Memory\\", \\
+        \\"bufferedMem\\": \\"%s\\" \\
+      }",
+      $6
+    }'
+  `,
 
-    # Free Memory
-    free | grep "buffers/cache" |
-      awk -v total="$total" '{printf "freeMem: %s\\n", $4}' &&
-
-    # Buffered Memory
-    free | grep "Mem" |
-      awk -v total="$total" '{printf "bufferedMem: %s\\n", $6}' &&
-
-    # Cached Memory
-    free | grep "Mem" |
-      awk -v total="$total" '{printf "cachedMem: %s\\n", $7}'
+  CachedMemory: `
+    free | grep "Mem" | awk '{
+      printf "{ \\
+        \\"title\\": \\"Cached Memory\\", \\
+        \\"cachedMem\\": \\"%s\\" \\
+      }",
+      $7
+    }'
   `
 };

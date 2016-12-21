@@ -17,13 +17,14 @@ export default class CpuInfo extends Component {
 
   componentDidMount() {
     // Get the CPU information
-    let modelReq = request('GET', '/cpu-model');
-    let architectureReq = request('GET', '/cpu-architecture');
-    let countReq = request('GET', '/cpu-count');
-    let maxClockReq = request('GET', '/cpu-max-clock');
-    let minClockReq = request('GET', '/cpu-min-clock');
+    let promises = [
+      request('GET', '/cpu-model'),
+      request('GET', '/cpu-architecture'),
+      request('GET', '/cpu-count'),
+      request('GET', '/cpu-max-clock'),
+      request('GET', '/cpu-min-clock')
+    ];
 
-    let promises = [modelReq, architectureReq, maxClockReq, minClockReq];
     Promise.all(promises).then(res => {
       let flatRes = [].concat.apply([], res);
 
