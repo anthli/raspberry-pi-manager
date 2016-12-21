@@ -27,8 +27,7 @@ $ npm install
 # If you're using Yarn
 $ yarn
 
-# And now for the finishing touch
-$ npm run dev
+$ npm run start
 ```
 
 The server will now be listening on port 3000 for production, or 4000 for
