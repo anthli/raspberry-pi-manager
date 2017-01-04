@@ -1,6 +1,6 @@
 'use strict';
 
-const concatCSS = require('gulp-concat-css');
+const concat = require('gulp-concat');
 const del = require('del');
 const eslint = require('gulp-eslint');
 const gulp = require('gulp');
@@ -25,10 +25,13 @@ gulp.task('webpack', () => {
 
 gulp.task('sass', () => {
   return gulp.src(`${SrcDir}/public/**/*.scss`)
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
-    .pipe(concatCSS('main.min.css'))
+    .pipe(
+      sass({
+        outputStyle: 'compressed'
+      })
+      .on('error', sass.logError)
+    )
+    .pipe(concat('main.min.css'))
     .pipe(gulp.dest(`${DistDir}/css`));
 });
 
@@ -38,25 +41,26 @@ gulp.task('watch', ['build'], () => {
   };
 
   gulp.watch(
-    [`${SrcDir}/app/**/*.js`],
+    [
+      `${SrcDir}/app/**/*.js`,
+      `${SrcDir}/app/**/*.jsx`
+    ],
     ['webpack']
-  ).on('change', fileChanged);
-
-  gulp.watch(
-    [`${SrcDir}/app/**/*.jsx`],
-    ['webpack']
-  ).on('change', fileChanged);
+  )
+  .on('change', fileChanged);
 
   gulp.watch(
     [`${SrcDir}/public/**/*.scss`],
     ['sass']
-  ).on('change', fileChanged);
+  )
+  .on('change', fileChanged);
 });
 
 gulp.task('build', cb => {
   runSequence(
     'clean',
-    ['webpack', 'sass'],
+    'sass',
+    'webpack',
     cb
   );
 });

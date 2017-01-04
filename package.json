@@ -29,7 +29,7 @@
     "electron-packager": "latest",
     "electron-rebuild": "latest",
     "gulp": "latest",
-    "gulp-concat-css": "latest",
+    "gulp-concat": "latest",
     "gulp-eslint": "latest",
     "gulp-sass": "latest",
     "gulp-util": "latest",
