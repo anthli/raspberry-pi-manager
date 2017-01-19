@@ -10,12 +10,9 @@ export default class Card extends Component {
 
   render() {
     let sections = _.map(this.props.sections, section => {
-      // The id of each section is the key that isn't the title
-      let id = _.filter(Object.keys(section), key => key !== 'title');
-
       return (
         <div
-          key={section.title}
+          key={section.id}
           className="card-section"
         >
           <div className="card-section-title">{section.title}</div>
@@ -24,7 +21,7 @@ export default class Card extends Component {
             id={id}
             className="card-section-content"
           >
-            {section[id]}
+            {section.content}
           </div>
         </div>
       );

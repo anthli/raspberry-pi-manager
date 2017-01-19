@@ -9,14 +9,18 @@ export default class NavBar extends Component {
     super();
 
     this.state = {
+      id: '',
       hostname: ''
     };
   }
 
   componentDidMount() {
-    request('GET', '/hostname')
+    request('GET', '/command/hostname')
       .then(res => {
-        this.setState({hostname: res.hostname});
+        this.setState({
+          id: res.id,
+          hostname: res.content
+        });
       })
       .catch(err => {
         console.error(err);
@@ -28,7 +32,7 @@ export default class NavBar extends Component {
       <div id="header">
         <div className="title-bar">
           <div
-            id="hostname"
+            id={this.state.id}
             className="title"
           >
             ./{this.state.hostname}

@@ -10,7 +10,6 @@
     "url": "git+https://github.com/anthli/raspberry-pi-monitor.git"
   },
   "dependencies": {
-    "express": "latest",
     "highcharts": "latest",
     "lodash": "latest",
     "react": "latest",
@@ -24,25 +23,17 @@
     "babel-preset-es2015": "latest",
     "babel-preset-react": "latest",
     "del": "latest",
-    "electron": "latest",
-    "electron-builder": "latest",
-    "electron-packager": "latest",
-    "electron-rebuild": "latest",
     "gulp": "latest",
     "gulp-concat": "latest",
     "gulp-eslint": "latest",
     "gulp-sass": "latest",
     "gulp-util": "latest",
-    "nodemon": "latest",
     "run-sequence": "latest",
     "webpack": "latest",
     "webpack-stream": "latest"
   },
   "scripts": {
-    "start": "nodemon app.js",
     "watch": "gulp watch",
-    "build": "gulp build",
-    "portable": "build --dir",
-    "dist": "build"
+    "build": "gulp build"
   }
 }

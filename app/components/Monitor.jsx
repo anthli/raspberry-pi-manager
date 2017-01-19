@@ -14,11 +14,11 @@ let memUsageChart;
 export default class Monitor extends Component {
   requestCpuUsage() {
     const sendRequest = () => {
-      request('GET', '/cpu-usage').then(res => {
+      request('GET', '/command/cpu-usage').then(res => {
         let series = cpuUsageChart.series[0];
         let shift = series.data.length > 20;
         let date = new Date().getTime();
-        series.addPoint([date, res.cpuUsage * 1], true, shift);
+        series.addPoint([date, res.content * 1], true, shift);
       })
       .catch(err => {
         console.error(err);
@@ -34,11 +34,11 @@ export default class Monitor extends Component {
 
   requestCpuTemp() {
     const sendRequest = () => {
-      request('GET', '/cpu-temp').then(res => {
+      request('GET', '/command/cpu-temp').then(res => {
         let series = cpuTempChart.series[0];
         let shift = series.data.length > 20;
         let date = new Date().getTime();
-        series.addPoint([date, res.cpuTemp * 1], true, shift);
+        series.addPoint([date, res.content * 1], true, shift);
       })
       .catch(err => {
         console.error(err);
@@ -55,10 +55,10 @@ export default class Monitor extends Component {
   requestMemUsage() {
     const sendRequest = () => {
       let promises = [
-        request('GET', '/free-memory'),
-        request('GET', '/used-memory'),
-        request('GET', '/buffered-memory'),
-        request('GET', '/cached-memory')
+        request('GET', '/command/free-memory'),
+        request('GET', '/command/used-memory'),
+        request('GET', '/command/buffered-memory'),
+        request('GET', '/command/cached-memory')
       ];
 
       Promise.all(promises).then(res => {
