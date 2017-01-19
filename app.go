@@ -10,7 +10,7 @@ import(
 )
 
 func main() {
-  // gin.SetMode(gin.ReleaseMode)
+  gin.SetMode(gin.ReleaseMode)
   r := gin.Default()
   r.LoadHTMLGlob("index.html")
 
@@ -32,8 +32,10 @@ func main() {
       fmt.Println(err)
     }
 
+    // Split the output into "id, title, content"
     info := strings.Split(string(out), ", ")
 
+    // Send a JSON reponse back to the client with the parsed info
     c.JSON(200, gin.H{
       "id": info[0],
       "title": info[1],
@@ -41,5 +43,6 @@ func main() {
     })
   })
 
-  r.Run(":3000")
+  // Listen on port 4000
+  r.Run(":4000")
 }
