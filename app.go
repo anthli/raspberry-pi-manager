@@ -11,7 +11,10 @@ import(
 
 func main() {
   gin.SetMode(gin.ReleaseMode)
-  r := gin.Default()
+  r := gin.New()
+  r.Use(gin.Recovery())
+
+  // Add HTML files
   r.LoadHTMLGlob("index.html")
 
   // Serve static files
