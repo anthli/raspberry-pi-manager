@@ -18,7 +18,7 @@ export default class Card extends Component {
           <div className="card-section-title">{section.title}</div>
 
           <div
-            id={id}
+            id={section.id}
             className="card-section-content"
           >
             {section.content}
