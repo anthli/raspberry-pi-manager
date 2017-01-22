@@ -259,14 +259,17 @@ export default class Monitor extends Component {
   render() {
     let sections = [
       {
+        id: 'cpu-usage',
         title: 'CPU Usage',
         cpuUsage: ''
       },
       {
+        id: 'cpu-temp',
         title: 'CPU Temperature',
         cpuTemp: ''
       },
       {
+        id: 'mem-usage',
         title: 'Memory Usage',
         memUsage: ''
       }

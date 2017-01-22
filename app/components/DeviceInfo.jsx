@@ -16,14 +16,14 @@ export default class DeviceInfo extends Component {
   }
 
   componentDidMount() {
-    let uptimeReq = request('GET', '/command/uptime');
+
 
     // Get the system information
     let promises = [
       request('GET', '/command/operating-system'),
       request('GET', '/command/total-memory'),
       request('GET', '/command/public-ip'),
-      uptimeReq
+      request('GET', '/command/uptime')
     ];
 
     Promise.all(promises).then(res => {
@@ -34,6 +34,8 @@ export default class DeviceInfo extends Component {
     // Request the uptime every minute. Update the state with the system
     // information containing the new uptime
     setInterval(() => {
+      let uptimeReq = request('GET', '/command/uptime');
+
       uptimeReq.then(res => {
         let newSysInfo = this.state.sysInfo.slice();
         newSysInfo[3].uptime = res[0].content;

@@ -48,7 +48,7 @@ func main() {
     c.JSON(200, gin.H{
       "id": info[0],
       "title": info[1],
-      "content": info[2],
+      "content": strings.TrimSpace(info[2]),
     })
   })
 

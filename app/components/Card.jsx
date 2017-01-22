@@ -10,8 +10,6 @@ export default class Card extends Component {
 
   render() {
     let sections = _.map(this.props.sections, section => {
-      console.log(section);
-
       return (
         <div
           key={section.id}
