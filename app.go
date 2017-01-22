@@ -40,10 +40,6 @@ func main() {
     // Split the output into "id, title, content"
     info := strings.Split(string(out), ", ")
 
-    fmt.Println(string(out))
-    fmt.Println(info)
-    fmt.Println()
-
     // Send a JSON reponse back to the client with the parsed info
     c.JSON(200, gin.H{
       "id": info[0],

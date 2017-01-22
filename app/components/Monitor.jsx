@@ -64,16 +64,16 @@ export default class Monitor extends Component {
       Promise.all(promises).then(res => {
         memUsageChart.series[0].setData([
           {
-            y: Math.round(res[0].freeMem / 1000)
+            y: Math.round(res[0].content / 1000)
           },
           {
-            y: Math.round(res[1].usedMem / 1000)
+            y: Math.round(res[1].content / 1000)
           },
           {
-            y: Math.round(res[2].bufferedMem / 1000)
+            y: Math.round(res[2].content / 1000)
           },
           {
-            y: Math.round(res[3].cachedMem / 1000)
+            y: Math.round(res[3].content / 1000)
           }
         ]);
       })
@@ -100,7 +100,7 @@ export default class Monitor extends Component {
     });
 
     // CPU Usage chart
-    cpuUsageChart = new Highcharts.chart('cpuUsage', {
+    cpuUsageChart = new Highcharts.chart('cpu-usage', {
       chart: {
         type: 'spline',
         events: {
@@ -151,7 +151,7 @@ export default class Monitor extends Component {
     });
 
     // CPU temperature chart
-    cpuTempChart = new Highcharts.chart('cpuTemp', {
+    cpuTempChart = new Highcharts.chart('cpu-temp', {
       chart: {
         type: 'spline',
         events: {
@@ -202,7 +202,7 @@ export default class Monitor extends Component {
     });
 
     // Memory usage chart
-    memUsageChart = new Highcharts.chart('memUsage', {
+    memUsageChart = new Highcharts.chart('mem-usage', {
       chart: {
         type: 'column',
         events: {
