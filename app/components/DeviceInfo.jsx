@@ -36,7 +36,7 @@ export default class DeviceInfo extends Component {
     setInterval(() => {
       uptimeReq.then(res => {
         let newSysInfo = this.state.sysInfo.slice();
-        newSysInfo[3].uptime = res[0].uptime;
+        newSysInfo[3].uptime = res[0].content;
 
         this.setState({sysInfo: newSysInfo});
       })

@@ -10,6 +10,8 @@ import(
 )
 
 func main() {
+  const Port = "4000"
+
   gin.SetMode(gin.ReleaseMode)
   r := gin.New()
   r.Use(gin.Recovery())
@@ -38,6 +40,10 @@ func main() {
     // Split the output into "id, title, content"
     info := strings.Split(string(out), ", ")
 
+    fmt.Println(string(out))
+    fmt.Println(info)
+    fmt.Println()
+
     // Send a JSON reponse back to the client with the parsed info
     c.JSON(200, gin.H{
       "id": info[0],
@@ -47,5 +53,6 @@ func main() {
   })
 
   // Listen on port 4000
-  r.Run(":4000")
+  fmt.Println("Listening on port " + Port)
+  r.Run(":" + Port)
 }
