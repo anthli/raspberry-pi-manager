@@ -10,7 +10,7 @@ import(
 )
 
 func main() {
-  const Port = "4000"
+  const Port = "3000"
 
   gin.SetMode(gin.ReleaseMode)
   r := gin.New()
