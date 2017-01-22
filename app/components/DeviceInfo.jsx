@@ -16,17 +16,18 @@ export default class DeviceInfo extends Component {
   }
 
   componentDidMount() {
+    let uptimeReq = request('GET', '/command/uptime');
+
     // Get the system information
     let promises = [
       request('GET', '/command/operating-system'),
       request('GET', '/command/total-memory'),
       request('GET', '/command/public-ip'),
-      request('GET', '/command/uptime')
+      uptimeReq
     ];
 
     Promise.all(promises).then(res => {
       let flatRes = [].concat.apply([], res);
-
       this.setState({sysInfo: flatRes});
     });
 
