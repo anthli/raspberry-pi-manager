@@ -10,7 +10,7 @@ import(
 )
 
 func main() {
-  const Port = "3000"
+  const port = "3000"
 
   gin.SetMode(gin.ReleaseMode)
   r := gin.New()
@@ -49,6 +49,6 @@ func main() {
   })
 
   // Listen on port 4000
-  fmt.Println("Listening on port " + Port)
-  r.Run(":" + Port)
+  fmt.Println("Listening on port " + port)
+  r.Run(":" + port)
 }

@@ -1,6 +1,6 @@
 # Raspberry Pi Monitor
 
-A Node.js server using React for monitoring the status and system information of
+A Go server using React for monitoring the status and system information of
 a Raspberry Pi.
 
 ## Features
@@ -15,19 +15,15 @@ a Raspberry Pi.
 ## Development
 
 ### Requirements
+- [Go](https://golang.org/)
 - [Node.js](https://goo.gl/QXkkAl)
-- [Yarn](https://goo.gl/QRG7dO) (optional, but significantly faster than `npm`)
 
 To start developing, clone the repo and run the following:
 
 ```bash
-# If you're using npm
 $ npm install
-
-# If you're using Yarn
-$ yarn
-
-$ npm run start
+$ npm run build/watch
+$ go run app.go
 ```
 
 The server will now be listening on port 3000 for production, or 4000 for
