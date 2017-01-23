@@ -1,6 +1,6 @@
 # Raspberry Pi Monitor
 
-A Node.js server using React for monitoring the status and system information of
+A Go server using React for monitoring the status and system information of
 a Raspberry Pi.
 
 ## Features
