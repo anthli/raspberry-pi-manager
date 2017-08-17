@@ -15,18 +15,18 @@ func main() {
   port := "3000"
   goPath := os.Getenv("GOPATH")
   projPath := "src/github.com/anthli/raspberry-pi-monitor/"
-  htmlPath := projPath + "index.html"
-  staticFilesPath := projPath + "dist"
+  htmlPath := filepath.Join(goPath, projPath, "index.html")
+  staticFilesPath := filepath.Join(goPath, projPath, "dist")
 
   gin.SetMode(gin.ReleaseMode)
   r := gin.New()
   r.Use(gin.Recovery())
 
   // Add HTML files
-  r.LoadHTMLGlob(filepath.Join(goPath, htmlPath))
+  r.LoadHTMLGlob(htmlPath)
 
   // Serve static files
-  r.Static("/dist", filepath.Join(goPath, staticFilesPath))
+  r.Static("/dist", staticFilesPath)
 
   r.GET("/", func(c *gin.Context) {
     c.HTML(http.StatusOK, "index.html", nil)
@@ -37,8 +37,8 @@ func main() {
     name := c.Param("name")
 
     // Execute the script based on the command's name
-    script := "scripts/" + name + ".sh"
-    out, err := exec.Command(filepath.Join(goPath, script)).Output()
+    scriptPath := filepath.Join(goPath, projPath, "scripts/" + name + ".sh")
+    out, err := exec.Command(scriptPath).Output()
 
     if err != nil {
       fmt.Println(err)
