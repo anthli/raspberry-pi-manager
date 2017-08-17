@@ -3,24 +3,30 @@ package main
 import(
   "fmt"
   "net/http"
+  "os"
   "os/exec"
+  "path/filepath"
   "strings"
 
   "gopkg.in/gin-gonic/gin.v1"
 )
 
 func main() {
-  const port = "3000"
+  port := "3000"
+  goPath := os.Getenv("GOPATH")
+  projPath := "src/github.com/anthli/raspberry-pi-monitor/"
+  htmlPath := projPath + "index.html"
+  staticFilesPath := projPath + "dist"
 
   gin.SetMode(gin.ReleaseMode)
   r := gin.New()
   r.Use(gin.Recovery())
 
   // Add HTML files
-  r.LoadHTMLGlob("index.html")
+  r.LoadHTMLGlob(filepath.Join(goPath, htmlPath))
 
   // Serve static files
-  r.Static("/dist", "./dist")
+  r.Static("/dist", filepath.Join(goPath, staticFilesPath))
 
   r.GET("/", func(c *gin.Context) {
     c.HTML(http.StatusOK, "index.html", nil)
@@ -31,7 +37,8 @@ func main() {
     name := c.Param("name")
 
     // Execute the script based on the command's name
-    out, err := exec.Command("scripts/" + name + ".sh").Output()
+    script := "scripts/" + name + ".sh"
+    out, err := exec.Command(filepath.Join(goPath, script)).Output()
 
     if err != nil {
       fmt.Println(err)
