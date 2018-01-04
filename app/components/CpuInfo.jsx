@@ -35,8 +35,8 @@ export default class CpuInfo extends Component {
   render() {
     return (
       <Card
-        icon="fa fa-microchip"
-        title="CPU Information"
+        icon='fa fa-microchip'
+        title='CPU Information'
         sections={this.state.cpuInfo}
       />
     );

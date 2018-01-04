@@ -16,8 +16,6 @@ export default class DeviceInfo extends Component {
   }
 
   componentDidMount() {
-
-
     // Get the system information
     let promises = [
       request('GET', '/command/operating-system'),
@@ -51,8 +49,8 @@ export default class DeviceInfo extends Component {
   render() {
     return (
       <Card
-        icon="fa fa-desktop"
-        title="Device Information"
+        icon='fa fa-desktop'
+        title='Device Information'
         sections={this.state.sysInfo}
       />
     );

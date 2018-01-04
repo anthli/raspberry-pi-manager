@@ -13,7 +13,7 @@ export default class App extends Component {
       <div>
         <NavBar />
 
-        <div id="content">
+        <div id='content'>
           <DeviceInfo />
           <CpuInfo />
           <Monitor />

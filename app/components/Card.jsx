@@ -13,13 +13,13 @@ export default class Card extends Component {
       return (
         <div
           key={section.id}
-          className="card-section"
+          className='card-section'
         >
-          <div className="card-section-title">{section.title}</div>
+          <div className='card-section-title'>{section.title}</div>
 
           <div
             id={section.id}
-            className="card-section-content"
+            className='card-section-content'
           >
             {section.content}
           </div>
@@ -28,12 +28,12 @@ export default class Card extends Component {
     });
 
     return (
-      <div className="card">
-        <div className="card-icon">
+      <div className='card'>
+        <div className='card-icon'>
           <i className={this.props.icon}></i>
         </div>
 
-        <div className="card-title">{this.props.title}</div>
+        <div className='card-title'>{this.props.title}</div>
 
         {sections}
       </div>

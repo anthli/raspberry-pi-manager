@@ -29,11 +29,11 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <div id="header">
-        <div className="title-bar">
+      <div id='header'>
+        <div className='title-bar'>
           <div
             id={this.state.id}
-            className="title"
+            className='title'
           >
             ./{this.state.hostname}
           </div>

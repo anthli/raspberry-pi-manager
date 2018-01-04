@@ -277,8 +277,8 @@ export default class Monitor extends Component {
 
     return (
       <Card
-        icon="fa fa-area-chart"
-        title="Monitor"
+        icon='fa fa-area-chart'
+        title='Monitor'
         sections={sections}
       />
     );
