@@ -1,0 +1,14 @@
+@import '../helpers/variables';
+
+html,
+body,
+#app,
+#raspberry-pi-monitor {
+  font-family: $font-family;
+  height: $page-height;
+  width: $page-width;
+}
+
+#raspberry-pi-monitor {
+  background-color: $app-color;
+}
