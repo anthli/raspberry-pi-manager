@@ -2,5 +2,5 @@
 
 lscpu | grep "Architecture" | awk '{
   $1="";
-  printf "cpu-architecture, Architecture, %s", $0
+  printf "cpu-arch, Architecture, %s", $0
 }'

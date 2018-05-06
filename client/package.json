@@ -1,31 +1,35 @@
 {
-  "name": "raspbery-pi-monitor",
+  "name": "rpi-monitor-client",
   "version": "2.0.0",
-  "description": "Raspberry Pi Monitor",
+  "description": "Raspberry Pi Monitor Client",
   "author": "Anthony Li",
   "dependencies": {
+    "@types/axios": "latest",
+    "@types/highcharts": "latest",
+    "@types/lodash": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "axios": "latest",
+    "chart.js": "^2.7.2",
     "highcharts": "latest",
     "lodash": "latest",
     "react": "latest",
     "react-dom": "latest"
   },
   "devDependencies": {
-    "babel-core": "latest",
-    "babel-loader": "latest",
-    "babel-plugin-transform-class-properties": "latest",
-    "babel-preset-es2015": "latest",
-    "babel-preset-react": "latest",
+    "awesome-typescript-loader": "latest",
     "css-loader": "latest",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "latest",
     "node-sass": "latest",
     "sass-loader": "latest",
+    "source-map-loader": "latest",
     "style-loader": "latest",
+    "typescript": "latest",
     "webpack": "latest",
     "webpack-cli": "latest"
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "watch": "./node_modules/.bin/webpack -w"
+    "build": "webpack",
+    "watch": "webpack -w"
   }
 }

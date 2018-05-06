@@ -1,31 +1,38 @@
-'use strict';
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   entry: [
-    './src/Main.jsx',
+    './src/Main.tsx',
     '../public/scss/main.scss'
   ],
+
   output: {
-    filename: './client/dist/js/[name].bundle.js'
+    filename: './js/[name].bundle.js',
+    path: __dirname + '/dist'
   },
+
+  devtool: 'source-map',
+
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: [
+      '.ts',
+      '.tsx',
+      '.js'
+    ]
   },
+
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          query: {
-            presets: ['es2015', 'react'],
-            plugins: ['transform-class-properties']
-          }
-        },
+        loader: 'awesome-typescript-loader'
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        loader: 'source-map-loader'
       },
       {
         test: /\.css$/,
@@ -51,10 +58,16 @@ module.exports = {
       }
     ]
   },
+
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
+
   plugins: [
     new ExtractTextPlugin({
-      filename: './client/dist/css/[name].bundle.css',
-      allChunks: true,
+      filename: './css/[name].bundle.css',
+      allChunks: true
     })
   ]
 };

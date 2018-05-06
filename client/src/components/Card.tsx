@@ -1,10 +1,9 @@
-'use strict';
+import * as _ from 'lodash';
+import * as React from 'react';
+import {Component} from 'react';
 
-import _ from 'lodash';
-import React, {Component} from 'react';
-
-export default class Card extends Component {
-  constructor(props) {
+export default class Card extends Component<any, any> {
+  constructor(props: any) {
     super(props);
   }
 
