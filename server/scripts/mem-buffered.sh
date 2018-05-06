@@ -1,5 +1,5 @@
 #!/bin/bash
 
 free | grep "Mem" | awk '{
-  printf "buffered-memory, Buffered Memory, %s", $6
+  printf "mem-buffered, Buffered Memory, %s", $6
 }'

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-free | grep "buffers/cache" | awk '{
-  printf "free-memory, Free Memory, %s", $4
+free | grep "Mem" | awk '{
+  printf "mem-free, Free Memory, %s", $4
 }'
