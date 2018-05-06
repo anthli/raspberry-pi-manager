@@ -4,7 +4,6 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 
 import Command from './command/command';
-import {Commands} from './command/commands';
 import {CommandSelection} from './command/commandSelection';
 
 const BASE_PATH = path.join(__dirname, '../../');

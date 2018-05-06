@@ -18,7 +18,7 @@
     "typescript": "^2.8.3"
   },
   "scripts": {
-    "start": "ts-node app.ts",
+    "start": "ts-node src/app.ts",
     "watch": "nodemon",
     "clean": "rm -rf node_modules/"
   }

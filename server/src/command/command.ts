@@ -81,7 +81,7 @@ export default class Command {
     this.execScript(scriptPath)
       .then((result: string) => {
         res.json({
-          response: res,
+          response: result,
           error: false
         });
       })
