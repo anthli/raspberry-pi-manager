@@ -2,10 +2,10 @@ export enum Commands {
   // System information
   HOSTNAME = 'hostname',
   OS = 'os',
-  PUBLIC_IP = 'public-ip',
   UPTIME = 'uptime',
 
   // CPU information
+  CPU = 'cpu',
   CPU_ARCH = 'cpu-arch',
   CPU_COUNT = 'cpu-count',
   CPU_MAX_CLOCK = 'cpu-max-clock',
@@ -15,6 +15,7 @@ export enum Commands {
   CPU_USAGE = 'cpu-usage',
 
   // Memory information
+  MEM = 'mem',
   MEM_BUFFERED = 'mem-buffered',
   MEM_CACHED = 'mem-cached',
   MEM_FREE = 'mem-free',

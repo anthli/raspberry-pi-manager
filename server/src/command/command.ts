@@ -17,16 +17,16 @@ export default class Command {
  * @param scriptPath
  */
   execScript(scriptPath: string): Promise<string> {
-    return new Promise((resolve: any, reject: any) => {
-      fs.exists(scriptPath, (exists) => {
+    return new Promise<string>((resolve, reject) => {
+      fs.exists(scriptPath, exists => {
         if (exists) {
           let child = spawn('sh', [scriptPath]);
 
-          child.stdout.on('data', (data: string) => {
+          child.stdout.on('data', data => {
             resolve(data.toString());
           })
 
-          child.stderr.on('data', (data: string) => {
+          child.stderr.on('data', data => {
             reject('There was an error executing the script');
           });
         }
@@ -34,7 +34,7 @@ export default class Command {
           reject('The script you want to execute does not exist');
         }
       });
-    })
+    });
   };
 
   /**
@@ -45,12 +45,12 @@ export default class Command {
    */
   getFilesWithPrefix(path: string, prefix: string): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
-      fs.readdir(path, (err: NodeJS.ErrnoException, files: string[]) => {
+      fs.readdir(path, (err, files) => {
         if (err) {
           reject('The path does not exist');
         }
         else {
-          resolve(_.filter(files, (file: string) => file.startsWith(prefix)));
+          resolve(_.filter(files, file => file.startsWith(prefix)));
         }
       });
     });
@@ -62,9 +62,9 @@ export default class Command {
    * @param res
    * @param err
    */
-  handleCommandError(res: Response, err: any) {
+  handleCommandError(res: Response, err: NodeJS.ErrnoException) {
     res.json({
-      response: err.toString(),
+      response: err.message,
       error: true
     });
   };
@@ -79,13 +79,13 @@ export default class Command {
     let scriptPath = path.join(this.scriptsPath, scriptName + '.sh');
 
     this.execScript(scriptPath)
-      .then((result: string) => {
+      .then(output => {
         res.json({
-          response: result,
+          response: output,
           error: false
         });
       })
-      .catch((err: any) => {
+      .catch(err => {
         this.handleCommandError(res, err);
       });
   };
@@ -98,27 +98,28 @@ export default class Command {
    */
   handleGroupCommand(res: Response, scriptGroup: string) {
     this.getFilesWithPrefix(this.scriptsPath, scriptGroup)
-      .then((results: string[]) => {
+      .then(files => {
         let execs: Promise<string>[] = [];
 
         // Aggregate the exections into an array of promises
-        _.forEach(results, (script: string) => {
-          let scriptPath = path.join(this.scriptsPath, script);
+        _.forEach(files, file => {
+          let scriptPath = path.join(this.scriptsPath, file);
           execs.push(this.execScript(scriptPath));
         });
 
         // Process all executions at once and send the response to the client
-        Promise.all(execs).then((execResults) => {
-          res.json({
-            response: execResults,
-            error: false
+        Promise.all(execs)
+          .then(execResults => {
+            res.json({
+              response: execResults,
+              error: false
+            });
+          })
+          .catch(err => {
+            this.handleCommandError(res, err);
           });
-        })
-        .catch((err) => {
-          this.handleCommandError(res, err);
-        })
       })
-      .catch((err: any) => {
+      .catch(err => {
         this.handleCommandError(res, err);
       });
   };
