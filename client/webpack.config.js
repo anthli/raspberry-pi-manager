@@ -25,12 +25,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(jsx?|tsx?)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader'
       },
       {
-        test: /\.js$/,
+        test: /\.(js|ts)$/,
         enforce: 'pre',
         loader: 'source-map-loader'
       },
@@ -57,11 +57,6 @@ module.exports = {
         })
       }
     ]
-  },
-
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
   },
 
   plugins: [
